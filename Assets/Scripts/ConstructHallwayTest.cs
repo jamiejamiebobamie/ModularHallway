@@ -39,7 +39,7 @@ public class ConstructHallwayTest : MonoBehaviour
             foreach(Transform children in nextPiece.transform)
             {
                 SpawnPoint test = children.GetComponent<SpawnPoint>();
-
+                Debug.Log(children.name);
                 if (test.rotation != Quaternion.identity) // this isn't what
                     // I wanted to do, but a ' is not null'
                     // test was not working...

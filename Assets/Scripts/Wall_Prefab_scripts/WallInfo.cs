@@ -12,11 +12,13 @@ public class WallInfo : MonoBehaviour
         Convex,
         Door,
     }
-
-    List<Vector3> spawnPoints = new List<Vector3>();
     System.Random rand = new System.Random();
 
-    protected WallType typeOfWall;
+    int randPercentage = 15;
+
+    List<Vector3> spawnPoints = new List<Vector3>();
+
+    public WallType typeOfWall;
 
     // an empty game object placed at the position to spawn the next wall piece
     [SerializeField] private GameObject spawnPoint_gameObject;
@@ -27,12 +29,15 @@ public class WallInfo : MonoBehaviour
     // the props that can be spawned by this wall type
     [SerializeField] protected GameObject[] props;
 
+    public WallInfo()
+    {
+        randPercentage = rand.Next(0, 15);
+    }
+
     void Start()
     {
         spawnPoint = spawnPoint_gameObject.GetComponent<WallSpawnPoint>().spawnPoint;
-
-        int randThird = rand.Next(0, 5);
-        if (randThird < 3)
+        if (randPercentage < 5)
         {
             int randInt = rand.Next(0, props.Length);
             Props prop = props[randInt].GetComponent<Props>();
