@@ -31,7 +31,7 @@ public class WallInfo : MonoBehaviour
     {
         spawnPoint = spawnPoint_gameObject.GetComponent<WallSpawnPoint>().spawnPoint;
 
-        int randThird = rand.Next(0, 8);
+        int randThird = rand.Next(0, 5);
         if (randThird < 3)
         {
             int randInt = rand.Next(0, props.Length);
