@@ -31,8 +31,8 @@ public class WallInfo : MonoBehaviour
     {
         spawnPoint = spawnPoint_gameObject.GetComponent<WallSpawnPoint>().spawnPoint;
 
-        int randThird = rand.Next(0, 4);
-        if (randThird < 2)
+        int randThird = rand.Next(0, 8);
+        if (randThird < 3)
         {
             int randInt = rand.Next(0, props.Length);
             Props prop = props[randInt].GetComponent<Props>();
@@ -52,7 +52,7 @@ public class WallInfo : MonoBehaviour
                     break;
                 case "FloorPlant":
                     foreach (Transform child in transform)
-                        if (child.name == "TrashCan_spawnPoints")
+                        if (child.name == "FloorPlant_spawnPoints")
                         {
                             foreach (Transform childrenOfChildren in child.transform)
                                 spawnPoints.Add(childrenOfChildren.position);
