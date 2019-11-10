@@ -70,11 +70,14 @@ public class ConstructHallway : MonoBehaviour
             storeSpawnPoint.z = newSpawnPoint.z;
             if (newWall.GetComponent<WallInfo>().typeOfWall == WallInfo.WallType.Concave)
                 storeRotY += 90;
-            //if (randInt == 2)
-            //    storeRotY += 90;
-            //if (randInt == 3)
-            //    storeRotY += 180;
-            count++;
+            if (storeRotY > 360)
+                storeRotY = 0;
+
+        //if (randInt == 2)
+        //    storeRotY += 90;
+        //if (randInt == 3)
+        //    storeRotY += 180;
+        count++;
         }
     }
 }
