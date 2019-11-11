@@ -7,6 +7,8 @@ public class SymmetricalHallways : MonoBehaviour
 
     GameObject floor, begin, exit;
 
+    public int limit;
+
     [SerializeField]
     GameObject[] wallTypes;
 
@@ -20,6 +22,7 @@ public class SymmetricalHallways : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        int count = 0;
         int numberOfWallTypes = wallTypes.Length;
         // generate a floor
         floor = GameObject.CreatePrimitive(PrimitiveType.Plane) as GameObject;
@@ -48,8 +51,6 @@ public class SymmetricalHallways : MonoBehaviour
         exit.transform.position = new Vector3(-randX, 0, randZ);
         exit.name = "exit";
 
-        int count = 0;
-
         storeSpawnPoint1 = begin.transform.position;
 
         storeSpawnPoint2 = exit.transform.position;// + new Vector3(0,0 - 0.01198f);
@@ -58,31 +59,39 @@ public class SymmetricalHallways : MonoBehaviour
         int randInt;
         int countBends = 0; // do not allow more than 2 consecutive bends. the third bend becomes rotated in the other direction.
         float rotY = 0;
+
         //while (storeSpawnPoint1.x < 0)
-        while (count < 10)
+        while (count < limit)
 
         {
+            if (countBends == 0)
+            {
+                rotY = -45;
+            }
             // "the bend" wall type is always the last in the array
             if (bend)
             {
                 rotY += 270;
-                randInt = random.Next(numberOfWallTypes - 1); // do not have two bends in a row
+                randInt = random.Next(numberOfWallTypes - 2); // do not have two bends in a row
                 bend = false;
             } else
             {
                 //rotY = 0;
-                randInt = random.Next(numberOfWallTypes); // the upper bound is exclusive
-                if (randInt == numberOfWallTypes - 1)
+                randInt = random.Next(numberOfWallTypes-1); // the upper bound is exclusive
+                Debug.Log(randInt);
+                if (randInt == numberOfWallTypes - 2)
                 {
                     countBends++;
                     if (countBends == 3)
                     {
-
+                        //rotY = 0;
+                        countBends = 0;
+                        randInt = 3; // use the BendUp, which is a bend in the opposite direction as the last bends.
                     }
- 
                     bend = true;
                 }
             }
+            //Debug.Log(randInt);
 
             GameObject newWall1 = Instantiate(wallTypes[randInt], storeSpawnPoint1, Quaternion.Euler(0, 90 - rotY, 0));
             GameObject newWall2 = Instantiate(wallTypes[randInt], storeSpawnPoint2, Quaternion.Euler(0, -90 - rotY, 0));
