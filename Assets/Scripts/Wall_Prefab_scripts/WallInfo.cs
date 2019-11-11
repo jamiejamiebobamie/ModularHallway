@@ -35,7 +35,7 @@ public class WallInfo : MonoBehaviour
     public WallInfo()
     {
         numberOfWalls++;
-        randPercentage = rand.Next(0, 35);
+        randPercentage = rand.Next(0, 15);
 
         //Debug.Log(numberOfWalls);
     }

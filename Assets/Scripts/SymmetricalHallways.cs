@@ -66,8 +66,9 @@ public class SymmetricalHallways : MonoBehaviour
         {
             if (countBends == 0)
             {
-                rotY = -45;
+                rotY = -90;
             }
+
             // "the bend" wall type is always the last in the array
             if (bend)
             {

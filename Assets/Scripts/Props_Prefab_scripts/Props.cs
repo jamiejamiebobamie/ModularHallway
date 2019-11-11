@@ -54,18 +54,23 @@ public class Props : MonoBehaviour
         //}
     }
 
-    //private void Update()
-    //{
-    //    if (spawnLocation != transform.position)
-    //    {
-    //        spawnLocation = new Vector3(attachedWall.transform.position.x + 1f, attachedWall.transform.position.y + 1.285f, attachedWall.transform.forward.z * 2.5f);
+    private void Update()
+    {
 
-    //        Debug.Log(attachedWall.transform.right * 3f);
+        if (transform.position.y < -1f)
+        {
+            Destroy(gameObject,2f);
+        }
+        //if (spawnLocation != transform.position)
+        //{
+        //    spawnLocation = new Vector3(attachedWall.transform.position.x + 1f, attachedWall.transform.position.y + 1.285f, attachedWall.transform.forward.z * 2.5f);
 
-    //        transform.position = spawnLocation;
-    //    }
+        //    Debug.Log(attachedWall.transform.right * 3f);
 
-    //}
+        //    transform.position = spawnLocation;
+        //}
+
+    }
 }
 
 
