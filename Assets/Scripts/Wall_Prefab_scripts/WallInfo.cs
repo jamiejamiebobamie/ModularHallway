@@ -15,6 +15,7 @@ public class WallInfo : MonoBehaviour
         Convex,
         Door,
     }
+
     System.Random rand = new System.Random();
 
     int randPercentage = 15;
@@ -47,11 +48,11 @@ public class WallInfo : MonoBehaviour
         {
             int randInt = rand.Next(0, props.Length);
             Props prop = props[randInt].GetComponent<Props>();
-            string name = prop.name;
+            string nameOfProp = prop.name;
             //Debug.Log(name);
 
             prop.attachedWall = gameObject;
-            switch (name)
+            switch (nameOfProp)
             {
                 case "FireExtinguisher":
                     foreach (Transform child in transform)

@@ -339,9 +339,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wallTypes:
   - {fileID: 8182533183527213299, guid: 7b3027cf34cba463aa0d07dd4955965d, type: 3}
-  - {fileID: 5878590024282756748, guid: 34d0596c61b6447b6b1dc6c9acb74610, type: 3}
-  - {fileID: 911492239215160503, guid: 1482df98949734bdf9994dbaa0fbcce7, type: 3}
   numOfOpenings: 1
   numOfIslands: 0
-  length: 3
-  width: 3
+  length: 100
+  width: 1

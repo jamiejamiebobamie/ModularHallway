@@ -22,10 +22,7 @@ public class Props : MonoBehaviour
     public Vector3[] spawnPoints;
     private Vector3 spawnLocation; // need this to be a single vector pulled from a range of values base on the prop's "area"
 
-    [SerializeField]
     public GameObject attachedWall;
-
-    private bool doOnce = true;
 
     private void Start()
     {
@@ -77,9 +74,9 @@ public class Props : MonoBehaviour
 
 
 
-//props:                      speed(1-10, 10==fastest)       area               quirk
-//        fire exstinguisher          5                      on_wall            1/3 chance of being interacted with by a guard("why is this on the floor?")
-//        trash can                   8                      wall_floor         spawns trash/debris that guards will follow to your location(banana peel, crumpled paper, etc.hard to follow if the guard cannot see the next piece of trash in the array, will create a vector from the second to last piece of garbage that the guard can see to the last piece of garbage the can see and head in that direction)
+//props:                      speed(1-10, 10=fastest)       area               quirk
+//        fire extinguisher           5                      on_wall            1/3 chance of being interacted with by a guard("why is this on the floor?")
+//        trash can                   8                      wall_floor         spawns trash/debris that guards will follow to your location(banana peel, crumpled paper, etc.hard to follow if the guard cannot see the next piece of trash in the array, will create a vector from the second to last piece of garbage that the guard can see to the last piece of garbage the guard can see and head in that direction)
 //        floor plant                 10                     wall_floor         leaves a dusting of soil in its wake that is even denser and easier to follow than the trash can.impossible to lose trail.
 //        radiator                    7                      wall_floor         player must lose 1 of three of its health points to turn into the radiator (burns player by touching.)
 //        wheel chair                 3                      anywhere           only spawned in concave corners.

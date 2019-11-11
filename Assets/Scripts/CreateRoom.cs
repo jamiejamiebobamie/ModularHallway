@@ -31,6 +31,12 @@ public class CreateRoom : MonoBehaviour
         floor.transform.position = new Vector3(0, 0, 0);
         floor.transform.localScale = new Vector3(width, 1, length);
 
+        // just for testing
+        GameObject cieling = GameObject.CreatePrimitive(PrimitiveType.Plane);
+        cieling.transform.position = new Vector3(0, 3f, 0);
+        cieling.transform.localScale = new Vector3(width, 1, length);
+        cieling.transform.localRotation = Quaternion.Euler(180, 0, 0);
+
         int numOfHorizontalWalls = 5 * width;
         int numOfVerticalWalls =  5 * length;
 
