@@ -56,6 +56,7 @@ public class SymmetricalHallways : MonoBehaviour
 
         bool bend = false;
         int randInt;
+        int countBends = 0; // do not allow more than 2 consecutive bends. the third bend becomes rotated in the other direction.
         float rotY = 0;
         //while (storeSpawnPoint1.x < 0)
         while (count < 10)
@@ -73,6 +74,12 @@ public class SymmetricalHallways : MonoBehaviour
                 randInt = random.Next(numberOfWallTypes); // the upper bound is exclusive
                 if (randInt == numberOfWallTypes - 1)
                 {
+                    countBends++;
+                    if (countBends == 3)
+                    {
+
+                    }
+ 
                     bend = true;
                 }
             }
