@@ -152,6 +152,7 @@ MonoBehaviour:
   wallTypes:
   - {fileID: 1475638764022198595, guid: bd1d8c56b5fd045b6918a6073b96c0f5, type: 3}
   - {fileID: 3162601041210528331, guid: bfe33761a2dcc4ddc93389decd350978, type: 3}
+  - {fileID: 2509084283276441411, guid: 86b02c0d393f247ef84b53f349c45a9e, type: 3}
 --- !u!4 &79732026
 Transform:
   m_ObjectHideFlags: 0

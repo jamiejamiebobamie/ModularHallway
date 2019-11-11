@@ -52,19 +52,36 @@ public class SymmetricalHallways : MonoBehaviour
 
         storeSpawnPoint1 = begin.transform.position;
 
-        storeSpawnPoint2 = exit.transform.position;
+        storeSpawnPoint2 = exit.transform.position;// + new Vector3(0,0 - 0.01198f);
 
-        //while (currentX < 0)
-        while (storeSpawnPoint1.x < 0)
+        bool bend = false;
+        int randInt;
+        float rotY = 0;
+        //while (storeSpawnPoint1.x < 0)
+        while (count < 10)
+
         {
-            int randInt = random.Next(numberOfWallTypes);
-            GameObject newWall = Instantiate(wallTypes[randInt], storeSpawnPoint1, Quaternion.Euler(0, 90, 0));
+            // "the bend" wall type is always the last in the array
+            if (bend)
+            {
+                rotY += 270;
+                randInt = random.Next(numberOfWallTypes - 1); // do not have two bends in a row
+                bend = false;
+            } else
+            {
+                //rotY = 0;
+                randInt = random.Next(numberOfWallTypes); // the upper bound is exclusive
+                if (randInt == numberOfWallTypes - 1)
+                {
+                    bend = true;
+                }
+            }
 
-            randInt = random.Next(numberOfWallTypes);
-            GameObject newWall2 = Instantiate(wallTypes[randInt], storeSpawnPoint2, Quaternion.Euler(0, -90, 0));
+            GameObject newWall1 = Instantiate(wallTypes[randInt], storeSpawnPoint1, Quaternion.Euler(0, 90 - rotY, 0));
+            GameObject newWall2 = Instantiate(wallTypes[randInt], storeSpawnPoint2, Quaternion.Euler(0, -90 - rotY, 0));
 
             Vector3 newSpawnPoint1 = new Vector3();
-            foreach (Transform child in newWall.transform)
+            foreach (Transform child in newWall1.transform)
             {
                 if (child.name == "SpawnPoint")
                 {
@@ -89,7 +106,7 @@ public class SymmetricalHallways : MonoBehaviour
             storeSpawnPoint1.z = newSpawnPoint1.z;
 
             storeSpawnPoint2.x = newSpawnPoint2.x;
-            storeSpawnPoint2.z = newSpawnPoint2.z;
+            storeSpawnPoint2.z = newSpawnPoint2.z;// - 0.01198f;
 
             count++;
     }

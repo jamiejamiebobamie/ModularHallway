@@ -84,7 +84,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 896669259925453039}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.0119, y: -0.0001, z: 0.0085}
+  m_LocalPosition: {x: 0.0119, y: 0.0233, z: 0.0085}
   m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
   m_Children:
   - {fileID: 362642818719905098}
@@ -333,7 +333,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7829391594542397354}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.00073181605, y: 0, z: 0.024}
+  m_LocalPosition: {x: 0, y: 0, z: 0.024}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5176161317562264288}
@@ -514,6 +514,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea269a0a5da194fafa669f5278df89de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  typeOfWall: 0
   spawnPoint_gameObject: {fileID: 7829391594542397354}
   spawnPoint: {x: 0, y: 0, z: 0}
   props:

@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class WallInfo : MonoBehaviour
 {
+
+    static int numberOfWalls;
+
     public enum WallType // should i declare this here or in the ConstructHallways class?
     {
         Window,
@@ -31,13 +34,16 @@ public class WallInfo : MonoBehaviour
 
     public WallInfo()
     {
-        randPercentage = rand.Next(0, 15);
+        numberOfWalls++;
+        randPercentage = rand.Next(0, 35);
+
+        Debug.Log(numberOfWalls);
     }
 
     void Start()
     {
         spawnPoint = spawnPoint_gameObject.GetComponent<WallSpawnPoint>().spawnPoint;
-        if (randPercentage < 5)
+        if (randPercentage < 3)
         {
             int randInt = rand.Next(0, props.Length);
             Props prop = props[randInt].GetComponent<Props>();

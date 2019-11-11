@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 3838937215752642691}
   - component: {fileID: 3769866385768535431}
   - component: {fileID: 1622963351474779258}
-  - component: {fileID: 9098037292064902548}
   m_Layer: 0
   m_Name: Quad (1)
   m_TagString: Untagged
@@ -79,20 +78,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!64 &9098037292064902548
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 854423278516185622}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &1687207031598652800
 GameObject:
   m_ObjectHideFlags: 0
@@ -104,7 +89,6 @@ GameObject:
   - component: {fileID: 8829796455218641251}
   - component: {fileID: 5092916145414684552}
   - component: {fileID: 80261206973267973}
-  - component: {fileID: 5874572660534312562}
   m_Layer: 0
   m_Name: Quad (1)
   m_TagString: Untagged
@@ -172,20 +156,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!64 &5874572660534312562
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1687207031598652800}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &3392692686732640653
 GameObject:
   m_ObjectHideFlags: 0
@@ -197,7 +167,6 @@ GameObject:
   - component: {fileID: 8897641499102394228}
   - component: {fileID: 4176500990651697311}
   - component: {fileID: 8261125660715130163}
-  - component: {fileID: 8495329374454062941}
   m_Layer: 0
   m_Name: Quad
   m_TagString: Untagged
@@ -213,10 +182,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3392692686732640653}
   m_LocalRotation: {x: 0.1345142, y: -0, z: -0, w: 0.99091166}
-  m_LocalPosition: {x: 0, y: 0.46510926, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.50691, y: 1, z: 1}
   m_Children:
   - {fileID: 8829796455218641251}
+  - {fileID: 6776712742002483208}
   m_Father: {fileID: 3043972343522838907}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 15.461, y: 0, z: 0}
@@ -266,20 +236,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!64 &8495329374454062941
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3392692686732640653}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &4279086557368354153
 GameObject:
   m_ObjectHideFlags: 0
@@ -290,6 +246,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3043972343522838907}
   - component: {fileID: 2951381650976935363}
+  - component: {fileID: -396861123135380465}
+  - component: {fileID: 8373283136479977854}
   m_Layer: 0
   m_Name: WetFloorSign
   m_TagString: Untagged
@@ -309,7 +267,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8897641499102394228}
-  - {fileID: 6776712742002483208}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -325,7 +282,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86995378fc53f425f92c64b28488b2a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnPoints: []
   attachedWall: {fileID: 0}
+--- !u!54 &-396861123135380465
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4279086557368354153}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!65 &8373283136479977854
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4279086557368354153}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.8, y: 1, z: 0.8}
+  m_Center: {x: 0, y: 0, z: 0.1}
 --- !u!1 &6233642245066348709
 GameObject:
   m_ObjectHideFlags: 0
@@ -337,7 +324,6 @@ GameObject:
   - component: {fileID: 6776712742002483208}
   - component: {fileID: 6334643234303151965}
   - component: {fileID: 878844006695767513}
-  - component: {fileID: 6773725182101583312}
   m_Layer: 0
   m_Name: Quad (1)
   m_TagString: Untagged
@@ -352,12 +338,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6233642245066348709}
-  m_LocalRotation: {x: -0, y: 0.9909117, z: -0.1345137, w: 0}
-  m_LocalPosition: {x: 0, y: 0.46510926, z: 0.26288706}
-  m_LocalScale: {x: 0.50691, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: 0.963812, z: -0.2665829, w: 0}
+  m_LocalPosition: {x: 0, y: 0.07008132, z: 0.25337365}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3838937215752642691}
-  m_Father: {fileID: 3043972343522838907}
+  m_Father: {fileID: 8897641499102394228}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 15.461, y: 180, z: 0}
 --- !u!33 &6334643234303151965
@@ -406,17 +392,3 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!64 &6773725182101583312
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6233642245066348709}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
