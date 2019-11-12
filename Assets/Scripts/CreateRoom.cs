@@ -10,28 +10,27 @@ public class CreateRoom : MonoBehaviour
     [SerializeField] [Range(1,4)]
     int numOfOpenings;
 
-    [SerializeField]
+    //[SerializeField]
     int numOfIslands;
 
-    [SerializeField]
+    [SerializeField] [Range(1, 10)]
     int length;
 
-    [SerializeField]
+    [SerializeField] [Range(1, 10)]
     int width;
 
     System.Random random = new System.Random();
 
-    //2.408143 // size of wall
+    float sizeOfWall = 2.408143f;
 
     // Start is called before the first frame update
     [SerializeField]
-    Vector3 origin; // need to be able to generate rooms around an offset. it is not working...
+    Vector3 origin;
 
     void Start()
     {
         // just for testing
         GameObject floor = GameObject.CreatePrimitive(PrimitiveType.Plane);
-        //floor.transform.position = new Vector3(0, 0, 0);
         floor.transform.position = origin;
         floor.transform.localScale = new Vector3(width, 1, length);
 
@@ -58,8 +57,8 @@ public class CreateRoom : MonoBehaviour
             current_index = i % wallTypes.Length;
 
             newLocation = new Vector3(horizontalBoundsOfFloor.x,
-                0f, horizontalBoundsOfFloor.z)
-                + new Vector3(2.408143f * (i + 1), 0f, 0f);
+                origin.y, horizontalBoundsOfFloor.z)
+                + new Vector3(sizeOfWall * (i + 1), 0f, 0f);
 
             Instantiate(wallTypes[current_index],
                 newLocation,
@@ -69,18 +68,6 @@ public class CreateRoom : MonoBehaviour
                 newLocation, Quaternion.Euler(0, -90, 0));
 
             newWall.transform.parent = cieling.transform;
-
-            //Instantiate(wallTypes[current_index],
-
-            //    new Vector3(horizontalBoundsOfFloor.x,
-            //    0f, -horizontalBoundsOfFloor.z)
-
-            //    +new Vector3(2.408143f * i, 0f, 0f),
-
-            //    //- new Vector3(0f,0f,newLocation.z + floor.transform.localScale.z), // need to send the new wall down the z axis to the other end of the floor/room.
-            //    //-new Vector3(0f, 0f, horizontalBoundsOfFloor.z),
-
-            //    Quaternion.Euler(0, 90, 0));
         }
 
         for (int i = 0; i < numOfVerticalWalls - length + 1; i++) // need to increment the total by total - total/percent of total
@@ -88,8 +75,8 @@ public class CreateRoom : MonoBehaviour
             current_index = i % wallTypes.Length;
 
             newLocation = new Vector3(verticalBoundsOfFloor.x,
-                0f, verticalBoundsOfFloor.z)
-                + new Vector3(0, 0f, 2.408143f * i);
+                origin.y, verticalBoundsOfFloor.z)
+                + new Vector3(0, 0f, sizeOfWall * i);
 
             Instantiate(wallTypes[current_index],
                 newLocation,
@@ -101,30 +88,41 @@ public class CreateRoom : MonoBehaviour
 
             newWall.transform.parent = cieling.transform;
 
-            //Instantiate(wallTypes[current_index],
-
-            //    new Vector3(0f,
-            //    0f, -verticalBoundsOfFloor.z)
-
-            //    + new Vector3(0f, 0f, -2.408143f * i),
-
-            //    Quaternion.Euler(0, 180, 0));
-            //Instantiate(wallTypes[current_index],
-            //    new Vector3(verticalBoundsOfFloor.x,
-            //    0f, verticalBoundsOfFloor.z)
-            //    + new Vector3(0f, 0f, -2.408143f * i) - origin,
-            //    Quaternion.Euler(0, 180, 0));
         }
 
         cieling.transform.Rotate(0f, 180f, 0f);
-        //float numOfWalls = (float)length % 2.408143f;
-        //Debug.Log(numOfWalls);
 
+        int rand = 0;
         // number of islands
         if (length > 1 && width > 1)
         {
-            int rand = random.Next(1, (length - 1) * (width - 1));
+            rand = random.Next(1, (length - 1) * (width - 1));
+            if (rand > 10)
+                rand = 10;
             Debug.Log(rand);
+        }
+
+        for (int i = 0; i < rand; i++)
+        {
+           GameObject newCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+
+            double upperBounds = origin.x + (width * 5f - sizeOfWall * 3f);
+            double lowerBounds = origin.x - (width * 5f - sizeOfWall * 3f);
+            double rangeOfValues = upperBounds - lowerBounds;
+            double randomDub = random.NextDouble();
+            double randX = randomDub * rangeOfValues - System.Math.Abs(lowerBounds);
+
+            upperBounds = origin.z + (length * 5f - sizeOfWall * 3f);
+            lowerBounds = origin.z - (length * 5f - sizeOfWall * 3f);
+            rangeOfValues = upperBounds - lowerBounds;
+            randomDub = random.NextDouble();
+            double randZ = randomDub * rangeOfValues - System.Math.Abs(lowerBounds);
+
+            Vector3 location = new Vector3((float)randX, origin.y,(float)randZ);
+            Debug.Log(location);
+
+            newCube.transform.localScale = new Vector3(width*3- 2.408143f*2, 0f,length*3- 2.408143f*2); // testing
+            newCube.transform.position = location;
         }
 
 
