@@ -7,6 +7,10 @@ public class CreateRoom : MonoBehaviour
     [SerializeField]
     GameObject[] wallTypes;
 
+    [SerializeField]
+    GameObject island;
+
+
     [SerializeField] [Range(1,4)]
     int numOfOpenings;
 
@@ -104,8 +108,6 @@ public class CreateRoom : MonoBehaviour
 
         for (int i = 0; i < rand; i++)
         {
-           GameObject newCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-
             double upperBounds = origin.x + (width * 5f - sizeOfWall * 3f);
             double lowerBounds = origin.x - (width * 5f - sizeOfWall * 3f);
             double rangeOfValues = upperBounds - lowerBounds;
@@ -119,10 +121,14 @@ public class CreateRoom : MonoBehaviour
             double randZ = randomDub * rangeOfValues - System.Math.Abs(lowerBounds);
 
             Vector3 location = new Vector3((float)randX, origin.y,(float)randZ);
-            Debug.Log(location);
 
-            newCube.transform.localScale = new Vector3(width*3- 2.408143f*2, 0f,length*3- 2.408143f*2); // testing
-            newCube.transform.position = location;
+            GameObject newIsland = Instantiate(island, location, Quaternion.identity);
+            newIsland.transform.localScale = new Vector3(2f, 1f, 2f); // testing
+
+
+
+            //newIsland.transform.localScale = new Vector3(width*3- 2.408143f*2, 0f,length*3- 2.408143f*2); // testing
+            //newIsland.transform.position = location;
         }
 
 

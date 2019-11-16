@@ -288,7 +288,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1686645055}
   m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalPosition: {x: 0, y: 100, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -319,7 +319,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1929637665}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 12.66, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -340,6 +340,7 @@ MonoBehaviour:
   wallTypes:
   - {fileID: 8182533183527213299, guid: 7b3027cf34cba463aa0d07dd4955965d, type: 3}
   - {fileID: 5878590024282756748, guid: 34d0596c61b6447b6b1dc6c9acb74610, type: 3}
+  island: {fileID: 8880562631142834875, guid: df202d6ab740d45e69cf8c4c3ceef009, type: 3}
   numOfOpenings: 1
   length: 5
   width: 3

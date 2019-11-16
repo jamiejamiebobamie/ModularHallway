@@ -14,6 +14,7 @@ public class WallInfo : MonoBehaviour
         Concave,
         Convex,
         Door,
+        Fork,
     }
 
     System.Random rand = new System.Random();
@@ -26,7 +27,10 @@ public class WallInfo : MonoBehaviour
 
     // an empty game object placed at the position to spawn the next wall piece
     [SerializeField] private GameObject spawnPoint_gameObject;
+    [SerializeField] private GameObject spawnPoint_gameObject2;
+
     public Vector3 spawnPoint;
+    public Vector3 spawnPoint2;
 
     private Quaternion rot = Quaternion.identity;
 
@@ -44,6 +48,10 @@ public class WallInfo : MonoBehaviour
     void Start()
     {
         spawnPoint = spawnPoint_gameObject.GetComponent<WallSpawnPoint>().spawnPoint;
+
+        // forks have two spawnpoints.
+        spawnPoint2 = spawnPoint_gameObject2.GetComponent<WallSpawnPoint>().spawnPoint;
+
         if (randPercentage < 3)
         {
             int randInt = rand.Next(0, props.Length);
