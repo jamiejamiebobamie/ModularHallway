@@ -133,10 +133,4 @@ public class CreateRoom : MonoBehaviour
 
 
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

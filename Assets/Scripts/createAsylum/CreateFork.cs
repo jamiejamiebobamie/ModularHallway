@@ -24,8 +24,11 @@ public class CreateFork : MonoBehaviour
         Fork(testLocation);
     }
 
-    void Fork(Vector3 spawnLocation)
+    Vector3 Fork(Vector3 spawnLocation)
     {
+        // spawn a fork at spawnLocation
+        // and return the location that the path should continue down.
+
         // create a new Fork in the road.
         GameObject newFork = Instantiate(fork, spawnLocation, Quaternion.identity);
 
@@ -73,7 +76,7 @@ public class CreateFork : MonoBehaviour
 
                 count++;
             }
-        } else if (deadEnd == 0)
+        } else
         {
             Debug.Log("left");
 
@@ -98,5 +101,13 @@ public class CreateFork : MonoBehaviour
                 count++;
             }
         }
+
+        // call room script to put an end on the dead end.
+
+        if (deadEnd == 1)
+            return storeSpawnPoint1;
+        else
+            return storeSpawnPoint2;
+
     }
 }
