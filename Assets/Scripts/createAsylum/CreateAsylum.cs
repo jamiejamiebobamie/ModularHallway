@@ -4,6 +4,14 @@ using UnityEngine;
 
 public class CreateAsylum : MonoBehaviour
 {
+
+    struct ReturnInfo
+    {
+        public Vector3 nextSpawnPoint;
+        public float currentYRotation;
+        public bool forkRight;
+    }
+
     System.Random random = new System.Random();
     // the order of the wallTypes matter:
     // Hallway_door, Hallway_window, bendDown, bendUp
@@ -18,21 +26,25 @@ public class CreateAsylum : MonoBehaviour
     {
         numberOfWallTypes = wallTypes.Length;
 
-        //Vector3 currentPosition = Room(Vector3.zero, 10, 10, false);
+        //Vector3 currentPosition = Room(Vector3.zero, 10, 10, Quaternion.Euler(0, 180f, 0), false);
 
-        Vector3 currentPosition = Hallway(Vector3.zero, 25);
+        //ReturnInfo info = Hallway(Vector3.zero, 0, 25);
 
-        currentPosition = Fork(currentPosition);
+        ReturnInfo newInfo = Fork(Vector3.zero, 0f);
+        //Debug.Log(info.currentYRotation);
 
-        currentPosition = Hallway(currentPosition, 25);
+        newInfo = Hallway(newInfo.nextSpawnPoint, newInfo.currentYRotation, 25);
     }
 
 
 
-    Vector3 Room(Vector3 origin, int length, int width, bool deadEnd)
+    ReturnInfo Room(Vector3 origin, int length, int width, float rot, bool deadEnd)
     {
         // the deadEnd bool indicates the room only has one entrance/exit.
 
+        ReturnInfo newReturnInfo = new ReturnInfo();
+
+        Vector3 spawnRoom = Vector3.zero;
 
         GameObject floor = GameObject.CreatePrimitive(PrimitiveType.Plane);
         floor.transform.position = origin;
@@ -97,6 +109,13 @@ public class CreateAsylum : MonoBehaviour
                     newLocation, Quaternion.Euler(0, -90, 0));
 
                 newWall.transform.parent = cieling.transform;
+            } else
+            {
+                spawnRoom = newLocation; // going to have to parent everything
+                // to the floor or cieling and create a method that shifts
+                // the room so that this opening aligns with the last generated
+                // floor piece before entering this method. (ie this location
+                // is the entrance to the room)
             }
 
         }
@@ -114,11 +133,11 @@ public class CreateAsylum : MonoBehaviour
                 newLocation,
                 Quaternion.Euler(0, 0, 0));
 
-
-
             if (i == missingWall2 && !deadEnd)
             {
-                continue;
+                newReturnInfo.nextSpawnPoint = newLocation;
+                newReturnInfo.currentYRotation = 0f;
+                // this is the exit opening.
             } else
             {
                 newWall = Instantiate(singleWalls[current_index],
@@ -164,16 +183,16 @@ public class CreateAsylum : MonoBehaviour
             newIsland.transform.localScale = new Vector3(2f, 1f, 2f);//testing
         }
 
-        return Vector3.zero;
+        return newReturnInfo;
     }
 
-    Vector3 Fork(Vector3 spawnLocation)
+    ReturnInfo Fork(Vector3 spawnLocation, float rot)
     {
         // spawn a fork at spawnLocation
         // and return the location that the path should continue down.
 
         // create a new Fork in the road.
-        GameObject newFork = Instantiate(fork, spawnLocation, Quaternion.identity);
+        GameObject newFork = Instantiate(fork, spawnLocation, Quaternion.Euler(0f,rot,0f));
 
         // get the world position of each spawn point (two of them)
         foreach (Transform child in newFork.transform)
@@ -202,7 +221,7 @@ public class CreateAsylum : MonoBehaviour
             while (count < numOfWallsUntilDeadEnd)
             {
                 randInt = random.Next(numberOfWallTypes - 1); // the upper bound is exclusive
-                newWall = Instantiate(wallTypes[randInt], storeSpawnPoint1, Quaternion.Euler(0, 0, 0));
+                newWall = Instantiate(wallTypes[randInt], storeSpawnPoint1, Quaternion.Euler(0, rot, 0));
 
                 Vector3 newSpawnPoint1 = new Vector3();
                 foreach (Transform child in newWall.transform)
@@ -223,59 +242,80 @@ public class CreateAsylum : MonoBehaviour
         else
         {
             Debug.Log("left");
+            //rot = 180f;
 
+            ReturnInfo info = new ReturnInfo();
+            info.nextSpawnPoint = storeSpawnPoint2;
+            info.currentYRotation = 0;
             while (count < numOfWallsUntilDeadEnd)
             {
-                randInt = random.Next(numberOfWallTypes - 1); // the upper bound is exclusive
-                newWall = Instantiate(wallTypes[randInt], storeSpawnPoint2, Quaternion.Euler(0, 180, 0));
+                info = Hallway(info.nextSpawnPoint, info.currentYRotation, 25);
+                //randInt = random.Next(numberOfWallTypes - 1); // the upper bound is exclusive
+                //newWall = Instantiate(wallTypes[randInt], storeSpawnPoint2, Quaternion.Euler(0, rot, 0));
 
-                Vector3 newSpawnPoint2 = new Vector3();
-                foreach (Transform child in newWall.transform)
-                {
-                    if (child.name == "SpawnPoint")
-                    {
-                        newSpawnPoint2 = child.position;
-                        break;
-                    }
-                }
+                //Vector3 newSpawnPoint2 = new Vector3();
+                //foreach (Transform child in newWall.transform)
+                //{
+                //    if (child.name == "SpawnPoint")
+                //    {
+                //        newSpawnPoint2 = child.position;
+                //        break;
+                //    }
+                //}
 
-                storeSpawnPoint2.x = newSpawnPoint2.x;
-                storeSpawnPoint2.z = newSpawnPoint2.z;
+                //storeSpawnPoint2.x = newSpawnPoint2.x;
+                //storeSpawnPoint2.z = newSpawnPoint2.z;
 
                 count++;
             }
         }
 
         // call room script to put an end on the dead end.
+        ReturnInfo newReturnInfo = new ReturnInfo();
 
         if (deadEnd == 1)
-            return storeSpawnPoint1;
+        {
+            newReturnInfo.nextSpawnPoint = storeSpawnPoint1;
+            newReturnInfo.currentYRotation = 180;
+            newReturnInfo.forkRight = true;
+        }
         else
-            return storeSpawnPoint2;
-
+        {
+            newReturnInfo.nextSpawnPoint = storeSpawnPoint1;
+            newReturnInfo.currentYRotation = 0;
+            newReturnInfo.forkRight = false;
+        }
+        return newReturnInfo;
     }
 
-    Vector3 Hallway(Vector3 start, int limit)
+    ReturnInfo Hallway(Vector3 start, float rot, int limit)
     {
         storeSpawnPoint1 = start;
         int count = 0;
         bool bend = false;
         int randInt;
         int countBends = 0;
-        float rotY = 0;
+        float rotY = rot;
         GameObject newWall1;
         Vector3 newSpawnPoint1 = new Vector3();
         bool endHallway = false;
+
+        ReturnInfo newReturnInfo = new ReturnInfo();
+
+
 
         while (count < limit)
         {
 
             if (endHallway)
             {
-                return storeSpawnPoint1;
+                newReturnInfo.nextSpawnPoint = newSpawnPoint1;
+                newReturnInfo.currentYRotation = rotY;
+
+                return newReturnInfo;
             }
 
-            if (countBends == 0)
+            if (countBends == 0 && count != 0)
             {
                 rotY = 90;
             }
@@ -321,7 +361,11 @@ public class CreateAsylum : MonoBehaviour
 
             count++;
         }
-        return newSpawnPoint1;
+
+        newReturnInfo.nextSpawnPoint = newSpawnPoint1;
+        newReturnInfo.currentYRotation = rotY;
+
+        return newReturnInfo;
     }
 }
 
