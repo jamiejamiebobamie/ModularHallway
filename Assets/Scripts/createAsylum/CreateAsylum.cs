@@ -26,19 +26,17 @@ public class CreateAsylum : MonoBehaviour
     {
         numberOfWallTypes = wallTypes.Length;
 
-        //Vector3 currentPosition = Room(Vector3.zero, 10, 10, Quaternion.Euler(0, 180f, 0), false);
+        ReturnInfo currentPosition = Room(Vector3.zero, 10, 10, 180f, false);
 
         //ReturnInfo info = Hallway(Vector3.zero, 0, 25);
 
-        ReturnInfo newInfo = Fork(Vector3.zero, 0f);
+        //ReturnInfo newInfo = Fork(Vector3.zero, 0f);
         //Debug.Log(info.currentYRotation);
 
-        newInfo = Hallway(newInfo.nextSpawnPoint, newInfo.currentYRotation, 25);
+        //newInfo = Hallway(newInfo.nextSpawnPoint, newInfo.currentYRotation, 25);
     }
 
-
-
-    ReturnInfo Room(Vector3 origin, int length, int width, float rot, bool deadEnd)
+    ReturnInfo Room(Vector3 spawnPoint, int length, int width, float rot, bool deadEnd)
     {
         // the deadEnd bool indicates the room only has one entrance/exit.
 
@@ -47,12 +45,12 @@ public class CreateAsylum : MonoBehaviour
         Vector3 spawnRoom = Vector3.zero;
 
         GameObject floor = GameObject.CreatePrimitive(PrimitiveType.Plane);
-        floor.transform.position = origin;
+        floor.transform.position = spawnPoint;
         floor.transform.localScale = new Vector3(width, 1, length);
 
         GameObject cieling = GameObject.CreatePrimitive(PrimitiveType.Plane);
 
-        cieling.transform.position = new Vector3(0, 3f, 0) + origin;
+        cieling.transform.position = new Vector3(0, 3f, 0) + spawnPoint;
 
         cieling.transform.localScale = new Vector3(width, 1, length);
         cieling.transform.localRotation = Quaternion.Euler(180, 0, 0);
@@ -96,7 +94,7 @@ public class CreateAsylum : MonoBehaviour
             current_index = i % singleWalls.Length;
 
             newLocation = new Vector3(horizontalBoundsOfFloor.x,
-                origin.y, horizontalBoundsOfFloor.z)
+                spawnPoint.y, horizontalBoundsOfFloor.z)
                 + new Vector3(sizeOfWall * (i + 1), 0f, 0f);
 
             Instantiate(singleWalls[current_index],
@@ -126,7 +124,7 @@ public class CreateAsylum : MonoBehaviour
             current_index = i % singleWalls.Length;
 
             newLocation = new Vector3(verticalBoundsOfFloor.x,
-                origin.y, verticalBoundsOfFloor.z)
+                spawnPoint.y, verticalBoundsOfFloor.z)
                 + new Vector3(0, 0f, sizeOfWall * i);
 
             Instantiate(singleWalls[current_index],
@@ -161,22 +159,22 @@ public class CreateAsylum : MonoBehaviour
 
         for (int i = 0; i < rand; i++)
         {
-            double upperBounds = origin.x + (width * 5f - sizeOfWall * 3f);
-            double lowerBounds = origin.x - (width * 5f - sizeOfWall * 3f);
+            double upperBounds = spawnPoint.x + (width * 5f - sizeOfWall * 3f);
+            double lowerBounds = spawnPoint.x - (width * 5f - sizeOfWall * 3f);
             double rangeOfValues = upperBounds - lowerBounds;
             double randomDub = random.NextDouble();
             double randX = randomDub * rangeOfValues
                 - System.Math.Abs(lowerBounds);
 
-            upperBounds = origin.z + (length * 5f - sizeOfWall * 3f);
-            lowerBounds = origin.z - (length * 5f - sizeOfWall * 3f);
+            upperBounds = spawnPoint.z + (length * 5f - sizeOfWall * 3f);
+            lowerBounds = spawnPoint.z - (length * 5f - sizeOfWall * 3f);
             rangeOfValues = upperBounds - lowerBounds;
             randomDub = random.NextDouble();
             double randZ = randomDub * rangeOfValues
                 - System.Math.Abs(lowerBounds);
 
             Vector3 location = new Vector3((float)randX,
-                origin.y, (float)randZ);
+                spawnPoint.y, (float)randZ);
 
             GameObject newIsland = Instantiate(island,
                 location, Quaternion.identity);
