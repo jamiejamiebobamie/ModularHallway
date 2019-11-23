@@ -11,33 +11,20 @@ public class CreateAsylum2 : MonoBehaviour
     {
         public Vector3 nextSpawnPoint;
         public float currentYRotation;
+        public bool deadEnd;
     }
 
     // the order of the wallTypes matter:
     // Hallway_door, Hallway_window, bendDown, bendUp
-    [SerializeField] GameObject[] wallTypes;
-    [SerializeField] GameObject island, opening;
-    [SerializeField] GameObject[] singleWalls;
-
-    [SerializeField] bool deadEnd;
-
-    [SerializeField] [Range(1, 10)] int length;
-    [SerializeField] [Range(1, 10)] int width;
+    [SerializeField] GameObject[] wallTypes, singleWalls;
+    [SerializeField] GameObject island, opening, fork;
+    [SerializeField] Vector3 origin;
 
     float sizeOfWall = 2.408143f;
+    int numberOfWallTypes, missingWall1, missingWall2, length, width;
 
-    [SerializeField]
-    Vector3 origin;
-
-    [SerializeField]
-    float serializedRotationY;
-
-    int numberOfWallTypes, missingWall1, missingWall2;
-
-    GameObject spawnSphere2, spawnSphere;
-
-    [SerializeField]
-    GameObject fork;
+    GameObject spawnSphere2, spawnSphere; // just for testing Room...
+                                         // ...will be empty object.
 
     Vector3 storeSpawnPoint1, storeSpawnPoint2;
 
@@ -49,12 +36,14 @@ public class CreateAsylum2 : MonoBehaviour
         start.nextSpawnPoint = Vector3.zero;
         start.currentYRotation = 0f;
 
-        Hallway(Room(Fork(Hallway(start))));
-        
+
+        Room(start);
     }
 
     ReturnInfo Room(ReturnInfo inputInfo)
     {
+        length = random.Next(1, 4);
+        width = random.Next(1, 4);
 
         Vector3 spawnPoint = inputInfo.nextSpawnPoint;
         float rotationY = inputInfo.currentYRotation;
@@ -105,7 +94,7 @@ public class CreateAsylum2 : MonoBehaviour
 
         missingWall1 = random.Next(1, numOfHorizontalWalls - width - 1);
 
-        if (!deadEnd)
+        if (!inputInfo.deadEnd)
         {
             missingWall2 = random.Next(1, numOfVerticalWalls - length - 1);
         }
@@ -116,7 +105,7 @@ public class CreateAsylum2 : MonoBehaviour
 
             current_index = i % singleWalls.Length;
 
-            newLocation = new Vector3(horizontalBoundsOfFloor.x,
+            newLocation = new Vector3(horizontalBoundsOfFloor.x+sizeOfWall,
                 spawnPoint.y, horizontalBoundsOfFloor.z)
                 + new Vector3(sizeOfWall * (i + 1), 0f, 0f);
 
@@ -135,11 +124,14 @@ public class CreateAsylum2 : MonoBehaviour
             }
             else
             {
-                spawnRoom = newLocation;
+ 
+                   spawnRoom = newLocation;
                 // this is the entrance opening.
 
                 spawnSphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-                spawnSphere.transform.position = spawnRoom;
+
+                spawnSphere.transform.position = new Vector3(spawnRoom.x,
+                    spawnRoom.y, spawnRoom.z);
 
                 spawnSphere.transform.parent = cieling.transform;
 
@@ -162,7 +154,7 @@ public class CreateAsylum2 : MonoBehaviour
             newWall.transform.parent = floor.transform;
 
 
-            if (i == missingWall2 && !deadEnd)
+            if (i == missingWall2 && !inputInfo.deadEnd)
             {
                 spawnRoom = newLocation;
                 spawnSphere2 = GameObject.CreatePrimitive(PrimitiveType.Sphere);
@@ -232,7 +224,7 @@ public class CreateAsylum2 : MonoBehaviour
 
         entranceAndRoomRoot.transform.localEulerAngles = new Vector3(0f,
             rotationY, 0f);
-        entranceAndRoomRoot.transform.position = origin;
+        entranceAndRoomRoot.transform.position = inputInfo.nextSpawnPoint;
 
         if (spawnSphere2 != null)
         {
@@ -414,18 +406,25 @@ public class CreateAsylum2 : MonoBehaviour
 
         // call Room() method to put an end on the dead end.
         ReturnInfo spawnRoom = new ReturnInfo();
+        spawnRoom.deadEnd = true;
 
         if (deadEndBool == 1)
-        {
-            spawnRoom.nextSpawnPoint = storeSpawnPoint2;
+        {                // need the spawn point to be on the other side of the opening
+                         // "sizeOfWall"+ sizeOfWall+50f
+            spawnRoom.nextSpawnPoint = storeSpawnPoint2;//new Vector3 (storeSpawnPoint2.x
+                //- sizeOfWall, storeSpawnPoint2.y, storeSpawnPoint2.z);
+            spawnRoom.currentYRotation = 0f;
             returnInfo.nextSpawnPoint = storeSpawnPoint1;
         }
         else
         {
-            spawnRoom.nextSpawnPoint = storeSpawnPoint1;
+            //spawnRoom.nextSpawnPoint = storeSpawnPoint1;
+            spawnRoom.nextSpawnPoint = storeSpawnPoint1;// new Vector3(storeSpawnPoint1.x - sizeOfWall,
+                //storeSpawnPoint1.y, storeSpawnPoint1.z);
+            spawnRoom.currentYRotation = 180f;
             returnInfo.nextSpawnPoint = storeSpawnPoint2;
         }
-
+        Debug.Log(spawnRoom.nextSpawnPoint);
         Room(spawnRoom);
         return returnInfo;
     }
