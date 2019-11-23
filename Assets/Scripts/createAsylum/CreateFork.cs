@@ -28,12 +28,16 @@ public class CreateFork : MonoBehaviour
     void Start()
     {
         numberOfWallTypes = wallTypes.Length;
-        Vector3 testLocation = origin;
-        Fork(testLocation);
+        ReturnInfo start = new ReturnInfo();
+
+        start.nextSpawnPoint = origin;
+        Fork(start);
     }
 
-    Vector3 Fork(Vector3 spawnLocation)
-    {
+    ReturnInfo Fork(ReturnInfo inputInfo) {
+        ReturnInfo returnInfo = new ReturnInfo();
+
+        Vector3 spawnLocation = inputInfo.nextSpawnPoint;
         // spawn a fork at spawnLocation
         // and return the location that the path should continue down.
 
@@ -113,9 +117,10 @@ public class CreateFork : MonoBehaviour
         // call room script to put an end on the dead end.
 
         if (deadEnd == 1)
-            return storeSpawnPoint1;
+            returnInfo.nextSpawnPoint = storeSpawnPoint1;
         else
-            return storeSpawnPoint2;
+            returnInfo.nextSpawnPoint = storeSpawnPoint2;
 
+        return returnInfo;
     }
 }

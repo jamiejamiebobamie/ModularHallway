@@ -30,10 +30,10 @@ public class CreateHallways : MonoBehaviour
         // (pieces = fork, hallway, room)
         // keep track of the last piece and if the current piece is the same
         // type as the last, stop a third of the same type from being chosen.
-        BuildHallway(BuildHallway(start));
+        Hallway(Hallway(start));
     }
 
-    public ReturnInfo BuildHallway(ReturnInfo inputInfo)
+    public ReturnInfo Hallway(ReturnInfo inputInfo)
     {
         ReturnInfo returnInfo = new ReturnInfo();
 
