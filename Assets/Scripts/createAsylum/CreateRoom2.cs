@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class CreateRoom2 : MonoBehaviour
 {
-
-    struct ReturnInfo
+    public struct ReturnInfo
     {
         public Vector3 nextSpawnPoint;
         public float currentYRotation;
@@ -33,9 +32,11 @@ public class CreateRoom2 : MonoBehaviour
 
 	float sizeOfWall = 2.408143f;
 
-	// Start is called before the first frame update
-	[SerializeField]
-	Vector3 origin;
+    [SerializeField]
+    Vector3 origin;
+
+    [SerializeField]
+    float serializedRotationY;
 
     int numberOfWallTypes, missingWall1, missingWall2;
 
@@ -44,7 +45,7 @@ public class CreateRoom2 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        ReturnInfo returnInfo = Room(Vector3.zero);
+        ReturnInfo returnInfo = Room(origin, serializedRotationY);
         //Debug.Log(returnInfo.nextSpawnPoint);
 
     }
@@ -52,7 +53,7 @@ public class CreateRoom2 : MonoBehaviour
     //, int length, int width, float rot, bool deadEnd
 
 
-    ReturnInfo Room(Vector3 spawnPoint)
+    ReturnInfo Room(Vector3 spawnPoint, float rotationY)
 	{
 		// the deadEnd bool indicates the room only has one entrance/exit.
 
@@ -222,49 +223,40 @@ public class CreateRoom2 : MonoBehaviour
             newIsland.transform.parent = floor.transform;
 
         }
-        //floor.transform.parent = spawnSphere.transform;
 
-
-        //newReturnInfo.nextSpawnPoint = spawnSphere2.transform.position;
         GameObject entranceAndRoomRoot = GameObject.CreatePrimitive(PrimitiveType.Sphere);
         entranceAndRoomRoot.transform.position = spawnSphere.transform.position;
         floor.transform.parent = entranceAndRoomRoot.transform;
-        Debug.Log(entranceAndRoomRoot.transform.position);
 
-        if (spawnSphere2 != null)
-        {
-           GameObject exit = Instantiate(opening, spawnSphere2.transform.position,
-                Quaternion.Euler(0f, 0f, 0f));
-            //foreach (GameObject child in exit.transform)
-            //{
-            //    if (child.name == "SpawnPoint1")
-            //    {
-            //        newReturnInfo.nextSpawnPoint = child.transform.position;
-            //    }
 
-            //}
-            exit.transform.parent = entranceAndRoomRoot.transform;
-            exit.name = "exit";
-
-            newReturnInfo.currentYRotation = 90f;
-
-            //// testing spawnPoint exit.
-            ///
-            //Fork spawnPointInfoScript = exit.GetComponent<Fork>();
-
-            //newReturnInfo.nextSpawnPoint = spawnPointInfoScript.spawnPoint;
-            //Debug.Log(newReturnInfo.nextSpawnPoint);
-
-            //GameObject test = Instantiate(wallTypes[1], newReturnInfo.nextSpawnPoint,
-            //    Quaternion.Euler(0f, newReturnInfo.currentYRotation, 0f));
-        }
 
         GameObject entrance = Instantiate(opening, entranceAndRoomRoot.transform.position,
         Quaternion.Euler(0f, 270f, 0f));
         entrance.transform.parent = entranceAndRoomRoot.transform;
         entrance.name = "entrance";
 
+        entranceAndRoomRoot.transform.localEulerAngles = new Vector3(0f, rotationY, 0f);
+        entranceAndRoomRoot.transform.position = origin;
 
+        if (spawnSphere2 != null)
+        {
+            GameObject exit = Instantiate(opening, spawnSphere2.transform.position,
+                 Quaternion.Euler(0f, 0f, 0f));
+            exit.transform.parent = entranceAndRoomRoot.transform;
+            exit.name = "exit";
+
+
+            newReturnInfo.nextSpawnPoint = exit.transform.position;
+            newReturnInfo.currentYRotation = 90f;
+            Debug.Log(newReturnInfo.nextSpawnPoint); // not correct...
+        }
+
+        //if (spawnSphere2 != null)
+        //{
+        //    newReturnInfo.nextSpawnPoint = spawnSphere2.transform.position;
+        //    newReturnInfo.currentYRotation = 90f;
+        //    Debug.Log(newReturnInfo.nextSpawnPoint);
+        //}
 
         return newReturnInfo;
 	}
