@@ -4,9 +4,17 @@ using UnityEngine;
 
 public class CreateFork : MonoBehaviour
 {
+    public struct ReturnInfo
+    {
+        public Vector3 nextSpawnPoint;
+        public float currentYRotation;
+    }
 
     [SerializeField]
     GameObject fork;
+
+    [SerializeField]
+    Vector3 origin;
 
     [SerializeField]
     GameObject[] wallTypes;
@@ -20,7 +28,7 @@ public class CreateFork : MonoBehaviour
     void Start()
     {
         numberOfWallTypes = wallTypes.Length;
-        Vector3 testLocation = Vector3.zero;
+        Vector3 testLocation = origin;
         Fork(testLocation);
     }
 

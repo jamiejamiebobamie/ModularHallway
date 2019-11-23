@@ -333,10 +333,11 @@ MonoBehaviour:
   singleWalls:
   - {fileID: 8182533183527213299, guid: 7b3027cf34cba463aa0d07dd4955965d, type: 3}
   - {fileID: 5878590024282756748, guid: 34d0596c61b6447b6b1dc6c9acb74610, type: 3}
-  deadEnd: 1
+  deadEnd: 0
   length: 1
   width: 1
-  origin: {x: 0, y: 0, z: 0}
+  origin: {x: 10, y: 0, z: 10}
+  serializedRotationY: 0
 --- !u!4 &1286907029
 Transform:
   m_ObjectHideFlags: 0

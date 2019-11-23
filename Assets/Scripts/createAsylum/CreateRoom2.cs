@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class CreateRoom2 : MonoBehaviour
 {
+
+    System.Random random = new System.Random();
+
     public struct ReturnInfo
     {
         public Vector3 nextSpawnPoint;
         public float currentYRotation;
-        public bool forkRight;
     }
 
     // the order of the wallTypes matter:
@@ -19,16 +21,8 @@ public class CreateRoom2 : MonoBehaviour
 
     [SerializeField] bool deadEnd;
 
-    //[SerializeField] [Range(1, 4)] int numOfOpenings; // cute...
-
-    //[SerializeField]
-    int numOfIslands;
-
     [SerializeField] [Range(1, 10)] int length;
-
 	[SerializeField] [Range(1, 10)] int width;
-
-	System.Random random = new System.Random();
 
 	float sizeOfWall = 2.408143f;
 
@@ -45,19 +39,21 @@ public class CreateRoom2 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        ReturnInfo returnInfo = Room(origin, serializedRotationY);
-        //Debug.Log(returnInfo.nextSpawnPoint);
-
+        ReturnInfo start = new ReturnInfo();
+        start.nextSpawnPoint = origin;
+        start.currentYRotation = serializedRotationY;
+        ReturnInfo returnInfo = Room(start);
     }
 
-    //, int length, int width, float rot, bool deadEnd
-
-
-    ReturnInfo Room(Vector3 spawnPoint, float rotationY)
+    ReturnInfo Room(ReturnInfo inputInfo)
 	{
-		// the deadEnd bool indicates the room only has one entrance/exit.
 
-		ReturnInfo newReturnInfo = new ReturnInfo();
+        Vector3 spawnPoint = inputInfo.nextSpawnPoint;
+        float rotationY = inputInfo.currentYRotation;
+
+        // the deadEnd bool indicates the room only has one entrance/exit.
+
+        ReturnInfo newReturnInfo = new ReturnInfo();
 
 		Vector3 spawnRoom = Vector3.zero;
 

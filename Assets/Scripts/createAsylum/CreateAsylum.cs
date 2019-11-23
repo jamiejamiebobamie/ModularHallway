@@ -5,7 +5,7 @@ using UnityEngine;
 public class CreateAsylum : MonoBehaviour
 {
 
-    struct ReturnInfo
+    public struct ReturnInfo
     {
         public Vector3 nextSpawnPoint;
         public float currentYRotation;
@@ -26,11 +26,12 @@ public class CreateAsylum : MonoBehaviour
     {
         numberOfWallTypes = wallTypes.Length;
 
-        ReturnInfo currentPosition = Room(Vector3.zero, 10, 10, 180f, false);
+        //ReturnInfo currentPosition = Room(Vector3.zero, 10, 10, 180f, false);
 
-        //ReturnInfo info = Hallway(Vector3.zero, 0, 25);
+        ReturnInfo info = Hallway(Vector3.zero, 0, 25);
 
-        //ReturnInfo newInfo = Fork(Vector3.zero, 0f);
+        //ReturnInfo newInfo = Fork(info.nextSpawnPoint, 0f);
+
         //Debug.Log(info.currentYRotation);
 
         //newInfo = Hallway(newInfo.nextSpawnPoint, newInfo.currentYRotation, 25);
