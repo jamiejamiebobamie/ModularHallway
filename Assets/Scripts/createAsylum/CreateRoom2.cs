@@ -15,9 +15,8 @@ public class CreateRoom2 : MonoBehaviour
     // the order of the wallTypes matter:
     // Hallway_door, Hallway_window, bendDown, bendUp
     [SerializeField] GameObject[] wallTypes;
-	[SerializeField] GameObject island;
+	[SerializeField] GameObject island, opening;
     [SerializeField] GameObject[] singleWalls;
-
 
     [SerializeField] bool deadEnd;
 
@@ -46,7 +45,7 @@ public class CreateRoom2 : MonoBehaviour
     void Start()
     {
         ReturnInfo returnInfo = Room(Vector3.zero);
-        Debug.Log(returnInfo.nextSpawnPoint);
+        //Debug.Log(returnInfo.nextSpawnPoint);
 
     }
 
@@ -98,11 +97,11 @@ public class CreateRoom2 : MonoBehaviour
 		Vector3 newLocation;
 		int current_index;
 
-		missingWall1 = random.Next(1, numOfHorizontalWalls - width);
+		missingWall1 = random.Next(1, numOfHorizontalWalls - width-1);
 
 		if (!deadEnd)
 		{
-			missingWall2 = random.Next(1, numOfVerticalWalls - length);
+			missingWall2 = random.Next(1, numOfVerticalWalls - length-1);
 		}
 
 		for (int i = 0; i < numOfHorizontalWalls; i++)
@@ -195,7 +194,7 @@ public class CreateRoom2 : MonoBehaviour
 			rand = random.Next(1, (length - 1) * (width - 1));
 			if (rand > 10)
 				rand = 10;
-			Debug.Log(rand);
+			//Debug.Log(rand);
 		}
 
 		for (int i = 0; i < rand; i++)
@@ -226,8 +225,46 @@ public class CreateRoom2 : MonoBehaviour
         //floor.transform.parent = spawnSphere.transform;
 
 
-        newReturnInfo.nextSpawnPoint = spawnSphere2.transform.position;
-        newReturnInfo.currentYRotation = 0f;
+        //newReturnInfo.nextSpawnPoint = spawnSphere2.transform.position;
+        GameObject entranceAndRoomRoot = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+        entranceAndRoomRoot.transform.position = spawnSphere.transform.position;
+        floor.transform.parent = entranceAndRoomRoot.transform;
+        Debug.Log(entranceAndRoomRoot.transform.position);
+
+        if (spawnSphere2 != null)
+        {
+           GameObject exit = Instantiate(opening, spawnSphere2.transform.position,
+                Quaternion.Euler(0f, 0f, 0f));
+            //foreach (GameObject child in exit.transform)
+            //{
+            //    if (child.name == "SpawnPoint1")
+            //    {
+            //        newReturnInfo.nextSpawnPoint = child.transform.position;
+            //    }
+
+            //}
+            exit.transform.parent = entranceAndRoomRoot.transform;
+            exit.name = "exit";
+
+            newReturnInfo.currentYRotation = 90f;
+
+            //// testing spawnPoint exit.
+            ///
+            //Fork spawnPointInfoScript = exit.GetComponent<Fork>();
+
+            //newReturnInfo.nextSpawnPoint = spawnPointInfoScript.spawnPoint;
+            //Debug.Log(newReturnInfo.nextSpawnPoint);
+
+            //GameObject test = Instantiate(wallTypes[1], newReturnInfo.nextSpawnPoint,
+            //    Quaternion.Euler(0f, newReturnInfo.currentYRotation, 0f));
+        }
+
+        GameObject entrance = Instantiate(opening, entranceAndRoomRoot.transform.position,
+        Quaternion.Euler(0f, 270f, 0f));
+        entrance.transform.parent = entranceAndRoomRoot.transform;
+        entrance.name = "entrance";
+
+
 
         return newReturnInfo;
 	}

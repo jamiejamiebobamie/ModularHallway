@@ -329,11 +329,12 @@ MonoBehaviour:
   - {fileID: 2509084283276441411, guid: 86b02c0d393f247ef84b53f349c45a9e, type: 3}
   - {fileID: 2509084283276441411, guid: d5f511f1ecb244a3ca47fa6c267f4a31, type: 3}
   island: {fileID: 8880562631142834875, guid: df202d6ab740d45e69cf8c4c3ceef009, type: 3}
+  opening: {fileID: 8185547275050148003, guid: d78e54b04a2214ddc8f3301156be99cd, type: 3}
   singleWalls:
   - {fileID: 8182533183527213299, guid: 7b3027cf34cba463aa0d07dd4955965d, type: 3}
   - {fileID: 5878590024282756748, guid: 34d0596c61b6447b6b1dc6c9acb74610, type: 3}
-  deadEnd: 1
-  length: 10
+  deadEnd: 0
+  length: 2
   width: 10
   origin: {x: 0, y: 0, z: 0}
 --- !u!4 &1286907029

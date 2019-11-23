@@ -5,7 +5,7 @@ using UnityEngine;
 public class SymmetricalHallways : MonoBehaviour
 {
 
-    GameObject floor, begin, exit;
+    public GameObject floor, begin, exit;
 
     public int limit;
 
