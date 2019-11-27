@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4245788940685577488}
   m_Layer: 0
-  m_Name: island
+  m_Name: Island
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -98,11 +98,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3369377065080887714, guid: 1fa2fab1f79fd4e588d6d8c5303177f0,
+        type: 3}
+      propertyPath: spawnPoint_gameObject2
+      value: 
+      objectReference: {fileID: 2316902395759863408}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1fa2fab1f79fd4e588d6d8c5303177f0, type: 3}
 --- !u!4 &1682154965648352380 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 337623121482481485, guid: 1fa2fab1f79fd4e588d6d8c5303177f0,
+    type: 3}
+  m_PrefabInstance: {fileID: 1438703782942399281}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2316902395759863408 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3733491804210625857, guid: 1fa2fab1f79fd4e588d6d8c5303177f0,
     type: 3}
   m_PrefabInstance: {fileID: 1438703782942399281}
   m_PrefabAsset: {fileID: 0}
@@ -188,6 +199,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3369377065080887714, guid: 1fa2fab1f79fd4e588d6d8c5303177f0,
+        type: 3}
+      propertyPath: spawnPoint_gameObject2
+      value: 
+      objectReference: {fileID: 2316902395759863408}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1fa2fab1f79fd4e588d6d8c5303177f0, type: 3}
 --- !u!1001 &8760953926143960608
@@ -277,6 +293,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3369377065080887714, guid: 1fa2fab1f79fd4e588d6d8c5303177f0,
+        type: 3}
+      propertyPath: spawnPoint_gameObject2
+      value: 
+      objectReference: {fileID: 2316902395759863408}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1fa2fab1f79fd4e588d6d8c5303177f0, type: 3}
 --- !u!1001 &8778902672781484591
@@ -366,5 +387,10 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3369377065080887714, guid: 1fa2fab1f79fd4e588d6d8c5303177f0,
+        type: 3}
+      propertyPath: spawnPoint_gameObject2
+      value: 
+      objectReference: {fileID: 2316902395759863408}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1fa2fab1f79fd4e588d6d8c5303177f0, type: 3}

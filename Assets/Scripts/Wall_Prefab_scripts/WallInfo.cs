@@ -40,7 +40,7 @@ public class WallInfo : MonoBehaviour
     public WallInfo()
     {
         numberOfWalls++;
-        randPercentage = rand.Next(0, 3);
+        randPercentage = rand.Next(0, 15);
 
         //Debug.Log(numberOfWalls);
     }
@@ -53,8 +53,9 @@ public class WallInfo : MonoBehaviour
         spawnPoint2 = spawnPoint_gameObject2.GetComponent<WallSpawnPoint>().spawnPoint;
 
         if (randPercentage < 3)
+        //if (true)
         {
-            int randInt = rand.Next(0, props.Length);
+            int randInt = rand.Next(0, props.Length-1);
             Props prop = props[randInt].GetComponent<Props>();
             string nameOfProp = prop.name;
             //Debug.Log(name);

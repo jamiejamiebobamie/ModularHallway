@@ -35,11 +35,12 @@ public class CreateAsylum2 : MonoBehaviour
         numberOfWallTypes = wallTypes.Length;
 
         ReturnInfo start = new ReturnInfo();
-        start.nextSpawnPoint = new Vector3(15f,15f,15f);
+        start.nextSpawnPoint = origin;
         start.currentYRotation = 0f;
 
 
-        Room(start);
+        //Room(start);
+        Fork(start);
 
     }
 

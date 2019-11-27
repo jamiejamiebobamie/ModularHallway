@@ -7,6 +7,8 @@ public class Props : MonoBehaviour
     [Range(1, 10)]
     protected int speed;
 
+    protected float startingYPosition;
+
     public enum PropType // should i declare this here or in the ConstructHallways class?
     {
         FireExtinguisher,
@@ -26,6 +28,7 @@ public class Props : MonoBehaviour
 
     private void Start()
     {
+        startingYPosition = transform.position.y;
         //while (doOnce && attachedWall != null)
         //{
         //    float minIntoHallway = attachedWall.transform.position.x - attachedWall.transform.localScale.x / 5f;
@@ -54,7 +57,7 @@ public class Props : MonoBehaviour
     private void Update()
     {
 
-        if (transform.position.y < -1f)
+        if (transform.position.y < startingYPosition - 10f)
         {
             Destroy(gameObject,2f);
         }

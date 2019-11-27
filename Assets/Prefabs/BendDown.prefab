@@ -332,7 +332,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   typeOfWall: 2
   spawnPoint_gameObject: {fileID: 4133800750478663905}
-  spawnPoint_gameObject2: {fileID: 0}
+  spawnPoint_gameObject2: {fileID: 3494454969736241143}
   spawnPoint: {x: 0, y: 0, z: 0}
   spawnPoint2: {x: 0, y: 0, z: 0}
   props: []
@@ -726,8 +726,19 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4070951573465368791, guid: 34d0596c61b6447b6b1dc6c9acb74610,
+        type: 3}
+      propertyPath: spawnPoint_gameObject2
+      value: 
+      objectReference: {fileID: 3494454969736241143}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 34d0596c61b6447b6b1dc6c9acb74610, type: 3}
+--- !u!1 &3494454969736241143 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2500939721729159814, guid: 34d0596c61b6447b6b1dc6c9acb74610,
+    type: 3}
+  m_PrefabInstance: {fileID: 1354408294406335857}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8431996933140056558 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7480386226110964895, guid: 34d0596c61b6447b6b1dc6c9acb74610,
@@ -900,6 +911,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3369377065080887714, guid: 1fa2fab1f79fd4e588d6d8c5303177f0,
+        type: 3}
+      propertyPath: spawnPoint_gameObject2
+      value: 
+      objectReference: {fileID: 3494454969736241143}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1fa2fab1f79fd4e588d6d8c5303177f0, type: 3}
 --- !u!1001 &7431876268527157355

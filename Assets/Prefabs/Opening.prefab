@@ -92,7 +92,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1878783440557980232}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.3627, y: 0, z: 0.0364}
+  m_LocalPosition: {x: 2.3627, y: 0, z: -2.42}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children: []
   m_Father: {fileID: 2514736867191189337}
@@ -285,8 +285,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   typeOfWall: 2
-  spawnPoint_gameObject: {fileID: 0}
-  spawnPoint_gameObject2: {fileID: 0}
+  spawnPoint_gameObject: {fileID: 7176645455342793255}
+  spawnPoint_gameObject2: {fileID: 7176645455342793255}
   spawnPoint: {x: 0, y: 0, z: 0}
   spawnPoint2: {x: 0, y: 0, z: 0}
   props: []
@@ -522,8 +522,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   typeOfWall: 2
-  spawnPoint_gameObject: {fileID: 0}
-  spawnPoint_gameObject2: {fileID: 0}
+  spawnPoint_gameObject: {fileID: 7176645455342793255}
+  spawnPoint_gameObject2: {fileID: 7176645455342793255}
   spawnPoint: {x: 0, y: 0, z: 0}
   spawnPoint2: {x: 0, y: 0, z: 0}
   props: []
@@ -890,7 +890,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7176645455342793255}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.367, y: 0.0040738583, z: 0.039}
+  m_LocalPosition: {x: 2.367, y: 0.0040738583, z: -2.417398}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2514736867191189337}

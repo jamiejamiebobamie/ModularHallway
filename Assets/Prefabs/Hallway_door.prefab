@@ -113,7 +113,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   typeOfWall: 4
   spawnPoint_gameObject: {fileID: 3200949255679655809}
-  spawnPoint_gameObject2: {fileID: 0}
+  spawnPoint_gameObject2: {fileID: 3200949255679655809}
   spawnPoint: {x: 0, y: 0, z: 0}
   spawnPoint2: {x: 0, y: 0, z: 0}
   props:
@@ -637,6 +637,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4070951573465368791, guid: 34d0596c61b6447b6b1dc6c9acb74610,
+        type: 3}
+      propertyPath: spawnPoint_gameObject2
+      value: 
+      objectReference: {fileID: 3200949255679655809}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 34d0596c61b6447b6b1dc6c9acb74610, type: 3}
 --- !u!4 &8694140333261058131 stripped

@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 2755202262556263850}
   - component: {fileID: 1477911877346520731}
   - component: {fileID: 8063370246345025863}
-  - component: {fileID: 8724490389170639175}
   - component: {fileID: 6149450710883381312}
+  - component: {fileID: 2754830604659878376}
   m_Layer: 0
   m_Name: FireExtinguisher
   m_TagString: Untagged
@@ -80,20 +80,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!136 &8724490389170639175
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 154460318061262918}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &6149450710883381312
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -106,4 +92,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52f6c9cc4807248288c51003e884e50c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnPoints: []
   attachedWall: {fileID: 0}
+--- !u!65 &2754830604659878376
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 154460318061262918}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 2, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}

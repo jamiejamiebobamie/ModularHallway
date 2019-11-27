@@ -346,8 +346,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53e7136cee08b41a5a372135a233874d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  typeOfWall: 2
   spawnPoint_gameObject: {fileID: 7713669245004486339}
+  spawnPoint_gameObject2: {fileID: 7713669245004486339}
   spawnPoint: {x: 0, y: 0, z: 0}
+  spawnPoint2: {x: 0, y: 0, z: 0}
   props:
   - {fileID: 154460318061262918, guid: a5ef89261c7a14fa782112a7f3b1db5b, type: 3}
   - {fileID: 9115831493003937063, guid: 41cf8e22fe00a472488caecc08ff169e, type: 3}
