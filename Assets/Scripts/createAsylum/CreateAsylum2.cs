@@ -21,7 +21,9 @@ public class CreateAsylum2 : MonoBehaviour
     [SerializeField] Vector3 origin;
 
     float sizeOfWall = 2.408143f;
-    int numberOfWallTypes, missingWall1, missingWall2, length, width;
+    int numberOfWallTypes, missingWall1, missingWall2;
+
+    [SerializeField] int length, width;
 
     GameObject spawnSphere2, spawnSphere; // just for testing Room...
                                          // ...will be empty object.
@@ -33,17 +35,18 @@ public class CreateAsylum2 : MonoBehaviour
         numberOfWallTypes = wallTypes.Length;
 
         ReturnInfo start = new ReturnInfo();
-        start.nextSpawnPoint = Vector3.zero;
+        start.nextSpawnPoint = new Vector3(15f,15f,15f);
         start.currentYRotation = 0f;
 
 
         Room(start);
+
     }
 
     ReturnInfo Room(ReturnInfo inputInfo)
     {
-        length = random.Next(1, 4);
-        width = random.Next(1, 4);
+        //length = random.Next(2, 10);
+        //width = random.Next(2, 10);
 
         Vector3 spawnPoint = inputInfo.nextSpawnPoint;
         float rotationY = inputInfo.currentYRotation;
@@ -101,11 +104,9 @@ public class CreateAsylum2 : MonoBehaviour
 
         for (int i = 0; i < numOfHorizontalWalls; i++)
         {
-
-
             current_index = i % singleWalls.Length;
 
-            newLocation = new Vector3(horizontalBoundsOfFloor.x+sizeOfWall,
+            newLocation = new Vector3(horizontalBoundsOfFloor.x,
                 spawnPoint.y, horizontalBoundsOfFloor.z)
                 + new Vector3(sizeOfWall * (i + 1), 0f, 0f);
 
