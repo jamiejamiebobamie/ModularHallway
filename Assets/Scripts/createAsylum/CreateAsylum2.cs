@@ -40,7 +40,13 @@ public class CreateAsylum2 : MonoBehaviour
 
 
         //Room(start);
-        Fork(start);
+        //Hallway(Fork(start));
+        //Room(Fork(Hallway(start)));
+        //Hallway(Room(Hallway(start)));
+        //Room(Hallway(start));
+        //Room(Fork(Hallway(Room(Hallway(start)))));
+        Hallway(Hallway(Hallway(start)));
+
 
     }
 
@@ -232,13 +238,13 @@ public class CreateAsylum2 : MonoBehaviour
         {
             GameObject exit = Instantiate(opening,
                 spawnSphere2.transform.position,
-                 Quaternion.Euler(0f, 0f, 0f));
+                 Quaternion.Euler(0f, inputInfo.currentYRotation, 0f));
             exit.transform.parent = entranceAndRoomRoot.transform;
             exit.name = "exit";
 
 
             newReturnInfo.nextSpawnPoint = exit.transform.position;
-            newReturnInfo.currentYRotation = 90f;
+            newReturnInfo.currentYRotation = inputInfo.currentYRotation - 90f;// +180f;
             Debug.Log(newReturnInfo.nextSpawnPoint); // not correct...
         }
 
@@ -261,6 +267,8 @@ public class CreateAsylum2 : MonoBehaviour
         float rotY = inputInfo.currentYRotation;
 
         GameObject newWall1;
+        GameObject parent = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+        parent.transform.position = storeSpawnPoint;
 
         while (countBends < 2)
 
@@ -286,6 +294,8 @@ public class CreateAsylum2 : MonoBehaviour
 
             newWall1 = Instantiate(wallTypes[randIndex], storeSpawnPoint,
                 Quaternion.Euler(0, 90f - rotY, 0));
+            newWall1.transform.parent = parent.transform;
+
 
             foreach (Transform child in newWall1.transform)
             {
@@ -304,6 +314,7 @@ public class CreateAsylum2 : MonoBehaviour
 
         newWall1 = Instantiate(wallTypes[numberOfWallTypes - 1],
             storeSpawnPoint, Quaternion.Euler(0, 180f - rotY, 0));
+        newWall1.transform.parent = parent.transform;
 
         foreach (Transform child in newWall1.transform)
         {
@@ -317,9 +328,10 @@ public class CreateAsylum2 : MonoBehaviour
         returnInfo.nextSpawnPoint = new Vector3(newSpawnPoint.x,
             0f, newSpawnPoint.z);
 
-        returnInfo.currentYRotation = inputInfo.currentYRotation - 90f;
+        returnInfo.currentYRotation = inputInfo.currentYRotation;// - 90f;
 
-        // parent everything to something....
+        parent.transform.rotation = Quaternion.Euler(0f,
+            inputInfo.currentYRotation, 0f);
 
         return returnInfo;
     }
@@ -363,6 +375,8 @@ public class CreateAsylum2 : MonoBehaviour
             {
                 randInt = random.Next(numberOfWallTypes - 2); // the upper bound is exclusive
                 newWall = Instantiate(wallTypes[randInt], storeSpawnPoint1, Quaternion.Euler(0, 0, 0));
+                newWall.transform.parent = newFork.transform;
+
 
                 Vector3 newSpawnPoint1 = new Vector3();
                 foreach (Transform child in newWall.transform)
@@ -388,6 +402,7 @@ public class CreateAsylum2 : MonoBehaviour
             {
                 randInt = random.Next(numberOfWallTypes - 2); // the upper bound is exclusive
                 newWall = Instantiate(wallTypes[randInt], storeSpawnPoint2, Quaternion.Euler(0, 180, 0));
+                newWall.transform.parent = newFork.transform;
 
                 Vector3 newSpawnPoint2 = new Vector3();
                 foreach (Transform child in newWall.transform)
@@ -406,6 +421,8 @@ public class CreateAsylum2 : MonoBehaviour
             }
         }
 
+        newFork.transform.rotation = Quaternion.Euler(0f, inputInfo.currentYRotation - 90f, 0f);
+
         // call Room() method to put an end on the dead end.
         ReturnInfo spawnRoom = new ReturnInfo();
         spawnRoom.deadEnd = true;
@@ -415,7 +432,9 @@ public class CreateAsylum2 : MonoBehaviour
                          // "sizeOfWall"+ sizeOfWall+50f
             spawnRoom.nextSpawnPoint = storeSpawnPoint2;//new Vector3 (storeSpawnPoint2.x
                 //- sizeOfWall, storeSpawnPoint2.y, storeSpawnPoint2.z);
-            spawnRoom.currentYRotation = 0f;
+            spawnRoom.currentYRotation = 0f+ inputInfo.currentYRotation;
+
+            returnInfo.currentYRotation = 180f + inputInfo.currentYRotation;
             returnInfo.nextSpawnPoint = storeSpawnPoint1;
         }
         else
@@ -423,10 +442,14 @@ public class CreateAsylum2 : MonoBehaviour
             //spawnRoom.nextSpawnPoint = storeSpawnPoint1;
             spawnRoom.nextSpawnPoint = storeSpawnPoint1;// new Vector3(storeSpawnPoint1.x - sizeOfWall,
                 //storeSpawnPoint1.y, storeSpawnPoint1.z);
-            spawnRoom.currentYRotation = 180f;
+            spawnRoom.currentYRotation = 180f+ inputInfo.currentYRotation;
+
+            returnInfo.currentYRotation = 0f + inputInfo.currentYRotation;
             returnInfo.nextSpawnPoint = storeSpawnPoint2;
+ 
         }
         Debug.Log(spawnRoom.nextSpawnPoint);
+
         Room(spawnRoom);
         return returnInfo;
     }
