@@ -23,7 +23,8 @@ public class CreateAsylum2 : MonoBehaviour
     float sizeOfWall = 2.408143f;
     int numberOfWallTypes, missingWall1, missingWall2;
 
-    [SerializeField] int length, width;
+    //[SerializeField]
+    int length, width;
 
     GameObject spawnSphere2, spawnSphere; // just for testing Room...
                                          // ...will be empty object.
@@ -38,23 +39,23 @@ public class CreateAsylum2 : MonoBehaviour
         start.nextSpawnPoint = origin;
         start.currentYRotation = 0f;
 
-        Fork(start);
+        //Fork(start);
         //Room(start);
         //Hallway(Fork(start));
         //Room(Fork(Hallway(start)));
         //Hallway(Room(Hallway(start)));
         //Room(Hallway(start));
         //Room(Fork(Hallway(Room(Hallway(start)))));
-        //Hallway(Hallway(
-        //Hallway(Room(start));
+        //Hallway(Room(
+            Hallway(Room(Hallway(start)));
 
 
     }
 
     ReturnInfo Room(ReturnInfo inputInfo)
     {
-        //length = random.Next(2, 10);
-        //width = random.Next(2, 10);
+        length = random.Next(1, 10);
+        width = random.Next(1, 10);
 
         Vector3 spawnPoint = inputInfo.nextSpawnPoint;
         float rotationY = inputInfo.currentYRotation;
