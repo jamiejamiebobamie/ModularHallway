@@ -38,14 +38,15 @@ public class CreateAsylum2 : MonoBehaviour
         start.nextSpawnPoint = origin;
         start.currentYRotation = 0f;
 
-
+        Fork(start);
         //Room(start);
         //Hallway(Fork(start));
         //Room(Fork(Hallway(start)));
         //Hallway(Room(Hallway(start)));
         //Room(Hallway(start));
         //Room(Fork(Hallway(Room(Hallway(start)))));
-        Hallway(Hallway(Hallway(start)));
+        //Hallway(Hallway(
+        //Hallway(Room(start));
 
 
     }
@@ -65,7 +66,9 @@ public class CreateAsylum2 : MonoBehaviour
         Vector3 spawnRoom = Vector3.zero;
 
         GameObject floor = GameObject.CreatePrimitive(PrimitiveType.Plane);
+
         floor.transform.position = spawnPoint;
+
         floor.transform.localScale = new Vector3(width, 1, length);
 
         GameObject cieling = GameObject.CreatePrimitive(PrimitiveType.Plane);
@@ -232,7 +235,8 @@ public class CreateAsylum2 : MonoBehaviour
 
         entranceAndRoomRoot.transform.localEulerAngles = new Vector3(0f,
             rotationY, 0f);
-        entranceAndRoomRoot.transform.position = inputInfo.nextSpawnPoint;
+
+        entranceAndRoomRoot.transform.position = new Vector3 (inputInfo.nextSpawnPoint.x - sizeOfWall, inputInfo.nextSpawnPoint.y, inputInfo.nextSpawnPoint.z);
 
         if (spawnSphere2 != null)
         {
@@ -264,7 +268,7 @@ public class CreateAsylum2 : MonoBehaviour
 
         int randIndex;
         int countBends = 0;
-        float rotY = inputInfo.currentYRotation;
+        float rotY = inputInfo.currentYRotation;// +90f;
 
         GameObject newWall1;
         GameObject parent = GameObject.CreatePrimitive(PrimitiveType.Sphere);
@@ -328,7 +332,7 @@ public class CreateAsylum2 : MonoBehaviour
         returnInfo.nextSpawnPoint = new Vector3(newSpawnPoint.x,
             0f, newSpawnPoint.z);
 
-        returnInfo.currentYRotation = inputInfo.currentYRotation;// - 90f;
+        returnInfo.currentYRotation = inputInfo.currentYRotation;// + 90f;
 
         parent.transform.rotation = Quaternion.Euler(0f,
             inputInfo.currentYRotation, 0f);
