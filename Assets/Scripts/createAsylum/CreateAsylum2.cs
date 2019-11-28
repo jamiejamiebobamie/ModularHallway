@@ -17,7 +17,7 @@ public class CreateAsylum2 : MonoBehaviour
     // the order of the wallTypes matter:
     // Hallway_door, Hallway_window, bendDown, bendUp
     [SerializeField] GameObject[] wallTypes, singleWalls;
-    [SerializeField] GameObject island, opening, fork;
+    [SerializeField] GameObject island, opening, fork, startCell, exitDoor;
     [SerializeField] Vector3 origin;
 
     float sizeOfWall = 2.408143f;
@@ -39,15 +39,16 @@ public class CreateAsylum2 : MonoBehaviour
         start.nextSpawnPoint = origin;
         start.currentYRotation = 0f;
 
-        //Fork(start);
-        //Room(start);
-        //Hallway(Fork(start));
-        //Room(Fork(Hallway(start)));
-        //Hallway(Room(Hallway(start)));
-        //Room(Hallway(start));
-        //Room(Fork(Hallway(Room(Hallway(start)))));
-        //Hallway(Room(
-            Hallway(Room(Hallway(start)));
+        Instantiate(startCell, start.nextSpawnPoint,
+            Quaternion.Euler(0f, start.currentYRotation, 0f));
+
+        ReturnInfo spawnExit = Room(Room(start));
+        //ReturnInfo spawnExit = Hallway(Room(Hallway(start)));
+
+        Instantiate(exitDoor, spawnExit.nextSpawnPoint,
+            Quaternion.Euler(0f, spawnExit.currentYRotation-90f, 0f));
+
+
 
 
     }

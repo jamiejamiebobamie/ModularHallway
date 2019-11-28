@@ -160,6 +160,10 @@ MonoBehaviour:
   island: {fileID: 8880562631142834875, guid: df202d6ab740d45e69cf8c4c3ceef009, type: 3}
   opening: {fileID: 8185547275050148003, guid: d78e54b04a2214ddc8f3301156be99cd, type: 3}
   fork: {fileID: 4842021920897336189, guid: bc02d53db87f14fb8bfd119cd25dd2fe, type: 3}
+  startCell: {fileID: 6093339033799552466, guid: 7f072c2b2a0334f6bb998bae4bba1b6f,
+    type: 3}
+  exitDoor: {fileID: 4912175245672192866, guid: d50b6068130c54e418ec6ef0e93a3a04,
+    type: 3}
   origin: {x: 0, y: 0, z: 0}
 --- !u!4 &1224257324
 Transform:
