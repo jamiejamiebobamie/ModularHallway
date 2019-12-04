@@ -40,7 +40,7 @@ public class CreateAsylum2 : MonoBehaviour
             Quaternion.Euler(0f, start.currentYRotation, 0f));
 
         //ReturnInfo spawnExit = Room(Room(start));
-        ReturnInfo spawnExit = Hallway(start);
+        ReturnInfo spawnExit = Fork(Hallway(start));
 
         Instantiate(exitDoor, spawnExit.nextSpawnPoint,
             Quaternion.Euler(0f, spawnExit.currentYRotation-90f, 0f));
@@ -435,7 +435,7 @@ public class CreateAsylum2 : MonoBehaviour
         }
         Debug.Log(spawnRoom.nextSpawnPoint);
 
-        Room(spawnRoom);
+        //Room(spawnRoom);
         return returnInfo;
     }
 }
