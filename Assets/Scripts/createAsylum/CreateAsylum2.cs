@@ -26,9 +26,6 @@ public class CreateAsylum2 : MonoBehaviour
     //[SerializeField]
     int length, width;
 
-    GameObject spawnSphere2, spawnSphere; // just for testing Room...
-                                         // ...will be empty object.
-
     Vector3 storeSpawnPoint1, storeSpawnPoint2;
 
     void Start()
@@ -42,139 +39,106 @@ public class CreateAsylum2 : MonoBehaviour
         Instantiate(startCell, start.nextSpawnPoint,
             Quaternion.Euler(0f, start.currentYRotation, 0f));
 
-        ReturnInfo spawnExit = Room(Room(start));
-        //ReturnInfo spawnExit = Hallway(Room(Hallway(start)));
+        //ReturnInfo spawnExit = Room(Room(start));
+        ReturnInfo spawnExit = Hallway(start);
 
         Instantiate(exitDoor, spawnExit.nextSpawnPoint,
             Quaternion.Euler(0f, spawnExit.currentYRotation-90f, 0f));
-
-
-
-
     }
 
     ReturnInfo Room(ReturnInfo inputInfo)
     {
+        ReturnInfo newReturnInfo = new ReturnInfo();
+        Vector3 spawnRoom, exitPosition = Vector3.zero;
+        Vector3 entrancePosition = Vector3.zero;
+
+        // generate a random length and width
+        // between 1 and 9 (inclusive)
         length = random.Next(1, 10);
         width = random.Next(1, 10);
 
-        Vector3 spawnPoint = inputInfo.nextSpawnPoint;
-        float rotationY = inputInfo.currentYRotation;
-
-        // the deadEnd bool indicates the room only has one entrance/exit.
-
-        ReturnInfo newReturnInfo = new ReturnInfo();
-
-        Vector3 spawnRoom = Vector3.zero;
-
+        // spawn the floor
         GameObject floor = GameObject.CreatePrimitive(PrimitiveType.Plane);
-
-        floor.transform.position = spawnPoint;
-
+        floor.transform.position = inputInfo.nextSpawnPoint;
         floor.transform.localScale = new Vector3(width, 1, length);
 
+        // spawn the cieling
         GameObject cieling = GameObject.CreatePrimitive(PrimitiveType.Plane);
-
-        cieling.transform.position = new Vector3(0, 3f, 0) + spawnPoint;
-
+        cieling.transform.position = new Vector3(0, 3f, 0)
+            + floor.transform.position;
         cieling.transform.localScale = new Vector3(width, 1, length);
         cieling.transform.localRotation = Quaternion.Euler(180, 0, 0);
 
-        int numOfHorizontalWalls = 5 * width;
-        int numOfVerticalWalls = 5 * length;
+        // determine the number of walls needed to line the room
+        // horizontal = along the x-axis
+        // vertical = along the z-axis
+        int numOfHorizontalWalls = 5 * width - width + 2;
+        int numOfVerticalWalls = 5 * length - length + 2;
 
-        // the number of walls does not scale well. upwards of 5 and there
-        // are gaps at the corners. need a different math function below
-        // to cover the increasing scale.
-
-        if (length > 5 || width > 5)
-        {
-            numOfHorizontalWalls = numOfHorizontalWalls - width + 2;
-            numOfVerticalWalls = numOfVerticalWalls - length + 2;
-        }
-        else
-        {
-            numOfHorizontalWalls = numOfHorizontalWalls - width + 1;
-            numOfVerticalWalls = numOfVerticalWalls - length + 1;
-        }
-
-        Vector3 horizontalBoundsOfFloor = floor.transform.position
-            - 5 * floor.transform.localScale;
-        Vector3 verticalBoundsOfFloor = floor.transform.position
+        Vector3 spawnWallStartPosition = floor.transform.position
             - 5 * floor.transform.localScale;
 
         GameObject newWall;
         Vector3 newLocation;
+
+        // index into the singleWalls Gameobject array
         int current_index;
 
+        // determine which wall will be the entrance opening
         missingWall1 = random.Next(1, numOfHorizontalWalls - width - 1);
 
+        // determine which wall will be the exit opening
+            // if the room is not a dead end.
         if (!inputInfo.deadEnd)
-        {
             missingWall2 = random.Next(1, numOfVerticalWalls - length - 1);
-        }
 
+        // generate walls that run along the x axis of the room.
         for (int i = 0; i < numOfHorizontalWalls; i++)
         {
+            // alternate wall types
             current_index = i % singleWalls.Length;
 
-            newLocation = new Vector3(horizontalBoundsOfFloor.x,
-                spawnPoint.y, horizontalBoundsOfFloor.z)
+            newLocation = new Vector3(spawnWallStartPosition.x,
+                inputInfo.nextSpawnPoint.y, spawnWallStartPosition.z)
                 + new Vector3(sizeOfWall * (i + 1), 0f, 0f);
 
+            // generate two sets of walls. 
             newWall = Instantiate(singleWalls[current_index],
                 newLocation,
-                Quaternion.Euler(0, -90, 0));
-            newWall.transform.parent = floor.transform;
+                Quaternion.Euler(0f, -90f, 0));
 
+            // one parented to the floor.
+            newWall.transform.parent = floor.transform;
 
             if (i != missingWall1)
             {
                 newWall = Instantiate(singleWalls[current_index],
-                    newLocation, Quaternion.Euler(0, -90, 0));
+                    newLocation, Quaternion.Euler(0f, -90f, 0f));
 
+                // the other parented to the cieling.
                 newWall.transform.parent = cieling.transform;
             }
             else
-            {
- 
-                   spawnRoom = newLocation;
-                // this is the entrance opening.
-
-                spawnSphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-
-                spawnSphere.transform.position = new Vector3(spawnRoom.x,
-                    spawnRoom.y, spawnRoom.z);
-
-                spawnSphere.transform.parent = cieling.transform;
-
-            }
-
+                entrancePosition = newLocation; // this is the entrance opening.
         }
 
+        // generate walls that run along the z axis of the room.
         for (int i = 0; i < numOfVerticalWalls; i++)
         {
 
             current_index = i % singleWalls.Length;
 
-            newLocation = new Vector3(verticalBoundsOfFloor.x,
-                spawnPoint.y, verticalBoundsOfFloor.z)
-                + new Vector3(0, 0f, sizeOfWall * i);
+            newLocation = new Vector3(spawnWallStartPosition.x,
+                inputInfo.nextSpawnPoint.y, spawnWallStartPosition.z)
+                + new Vector3(0f, 0f, sizeOfWall * i);
 
             newWall = Instantiate(singleWalls[current_index],
                 newLocation,
-                Quaternion.Euler(0, 0, 0));
+                Quaternion.Euler(0f, 0f, 0f));
             newWall.transform.parent = floor.transform;
 
-
             if (i == missingWall2 && !inputInfo.deadEnd)
-            {
-                spawnRoom = newLocation;
-                spawnSphere2 = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-                spawnSphere2.transform.position = spawnRoom;
-                spawnSphere2.transform.parent = cieling.transform;
-                // this is the exit opening.
-            }
+                exitPosition = newLocation; // this is the exit opening.
             else
             {
                 newWall = Instantiate(singleWalls[current_index],
@@ -184,12 +148,16 @@ public class CreateAsylum2 : MonoBehaviour
 
         }
 
+        // rotate the cieling and the two sets of walls that are parented to it.
         cieling.transform.Rotate(0f, 180f, 0f);
+
+        // parent the rotated cieling to the floor.
         cieling.transform.parent = floor.transform;
 
         int rand = 0;
 
-        // number of islands
+        // generate islands of rooms within the room
+        // do not generate islands if the length or width == 1 (too small)
         if (length > 1 && width > 1)
         {
             rand = random.Next(1, (length - 1) * (width - 1));
@@ -197,61 +165,72 @@ public class CreateAsylum2 : MonoBehaviour
                 rand = 10;
         }
 
+        // for each island, determine its location.
+            // leave the areas along the walls free of islands by determining
+            // "bounds".
         for (int i = 0; i < rand; i++)
         {
-            double upperBounds = spawnPoint.x + (width * 5f - sizeOfWall * 3f);
-            double lowerBounds = spawnPoint.x - (width * 5f - sizeOfWall * 3f);
+            double upperBounds = inputInfo.nextSpawnPoint.x
+                + (width * 5f - sizeOfWall * 3f);
+            double lowerBounds = inputInfo.nextSpawnPoint.x
+                - (width * 5f - sizeOfWall * 3f);
             double rangeOfValues = upperBounds - lowerBounds;
             double randomDub = random.NextDouble();
+
             double randX = randomDub * rangeOfValues
                 - System.Math.Abs(lowerBounds);
 
-            upperBounds = spawnPoint.z + (length * 5f - sizeOfWall * 3f);
-            lowerBounds = spawnPoint.z - (length * 5f - sizeOfWall * 3f);
+            upperBounds = inputInfo.nextSpawnPoint.z
+                + (length * 5f - sizeOfWall * 3f);
+            lowerBounds = inputInfo.nextSpawnPoint.z
+                - (length * 5f - sizeOfWall * 3f);
             rangeOfValues = upperBounds - lowerBounds;
             randomDub = random.NextDouble();
+
             double randZ = randomDub * rangeOfValues
                 - System.Math.Abs(lowerBounds);
 
             Vector3 location = new Vector3((float)randX,
-                spawnPoint.y, (float)randZ);
+                inputInfo.nextSpawnPoint.y, (float)randZ);
 
             GameObject newIsland = Instantiate(island,
                 location, Quaternion.identity);
+
             newIsland.transform.localScale =
-                new Vector3(2f, 1f, 2f); // testing...
+                new Vector3(20f * width, 100f, 20f*width);
+
             newIsland.transform.parent = floor.transform;
         }
 
-        GameObject entranceAndRoomRoot =
-            GameObject.CreatePrimitive(PrimitiveType.Sphere);
-        entranceAndRoomRoot.transform.position =
-            spawnSphere.transform.position;
-        floor.transform.parent = entranceAndRoomRoot.transform;
+        GameObject roomRoot = new GameObject();
 
-        GameObject entrance = Instantiate(opening,
-            entranceAndRoomRoot.transform.position,
+        roomRoot.transform.position = entrancePosition;
+        floor.transform.parent = roomRoot.transform;
+
+        GameObject entranceToRoomPrefab = Instantiate(opening,
+            entrancePosition,
         Quaternion.Euler(0f, 270f, 0f));
-        entrance.transform.parent = entranceAndRoomRoot.transform;
-        entrance.name = "entrance";
 
-        entranceAndRoomRoot.transform.localEulerAngles = new Vector3(0f,
-            rotationY, 0f);
+        entranceToRoomPrefab.transform.parent = roomRoot.transform;
+        entranceToRoomPrefab.name = "entrance";
 
-        entranceAndRoomRoot.transform.position = new Vector3 (inputInfo.nextSpawnPoint.x - sizeOfWall, inputInfo.nextSpawnPoint.y, inputInfo.nextSpawnPoint.z);
+        roomRoot.transform.localEulerAngles = new Vector3(0f,
+            inputInfo.currentYRotation, 0f);
 
-        if (spawnSphere2 != null)
+        roomRoot.transform.position = new Vector3 (inputInfo.nextSpawnPoint.x
+            - sizeOfWall, inputInfo.nextSpawnPoint.y, inputInfo.nextSpawnPoint.z);
+
+        if (exitPosition != Vector3.zero)
         {
             GameObject exit = Instantiate(opening,
-                spawnSphere2.transform.position,
+                exitPosition,
                  Quaternion.Euler(0f, inputInfo.currentYRotation, 0f));
-            exit.transform.parent = entranceAndRoomRoot.transform;
+
+            exit.transform.parent = roomRoot.transform;
             exit.name = "exit";
 
-
-            newReturnInfo.nextSpawnPoint = exit.transform.position;
-            newReturnInfo.currentYRotation = inputInfo.currentYRotation - 90f;// +180f;
-            Debug.Log(newReturnInfo.nextSpawnPoint); // not correct...
+            newReturnInfo.nextSpawnPoint = exitPosition;
+            newReturnInfo.currentYRotation = inputInfo.currentYRotation - 90f;
         }
 
         return newReturnInfo;

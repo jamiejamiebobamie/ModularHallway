@@ -157,7 +157,7 @@ MonoBehaviour:
   singleWalls:
   - {fileID: 8182533183527213299, guid: 7b3027cf34cba463aa0d07dd4955965d, type: 3}
   - {fileID: 5878590024282756748, guid: 34d0596c61b6447b6b1dc6c9acb74610, type: 3}
-  island: {fileID: 8880562631142834875, guid: df202d6ab740d45e69cf8c4c3ceef009, type: 3}
+  island: {fileID: 6881156811406988279, guid: 6f032857f5a1e47cfa33dec57e8cf909, type: 3}
   opening: {fileID: 8185547275050148003, guid: d78e54b04a2214ddc8f3301156be99cd, type: 3}
   fork: {fileID: 4842021920897336189, guid: bc02d53db87f14fb8bfd119cd25dd2fe, type: 3}
   startCell: {fileID: 6093339033799552466, guid: 7f072c2b2a0334f6bb998bae4bba1b6f,
