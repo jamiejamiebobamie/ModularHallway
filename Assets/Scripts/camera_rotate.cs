@@ -14,43 +14,40 @@ public class camera_rotate : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //StartCoroutine("FollowPlayer");
+        StartCoroutine("FollowPlayer");
     }
 
     // Update is called once per frame
     void Update()
     {
-        WatchPlayer();
+        //WatchPlayer();
     }
 
 
     private IEnumerator FollowPlayer()
     {
-        Vector3 lookAtDirection =
-            Vector3.Normalize(focusOfCamera.transform.position
-                - transform.position);
-
-        Quaternion rotationTowardPlayer =
-            Quaternion.LookRotation(lookAtDirection, transform.up);
-
-        transform.rotation =
-            Quaternion.Slerp(transform.localRotation,
-            rotationTowardPlayer, 0.05f);
-
-        yield return null;
+        for(; ; )
+        {
+            WatchPlayer();
+            yield return new WaitForSeconds(.05f);
+        }
     }
 
 
     private void WatchPlayer()
     {
-        Vector3 lookAtDirection =
-            Vector3.Normalize(focusOfCamera.transform.position
-                - transform.position);
+        if (Vector3.Distance(transform.position,
+            focusOfCamera.transform.position) < 10f)
+        {
+            Vector3 lookAtDirection =
+                Vector3.Normalize(focusOfCamera.transform.position
+                    - transform.position);
 
-        Quaternion rotationTowardPlayer =
-            Quaternion.LookRotation(lookAtDirection, transform.up);
+            Quaternion rotationTowardPlayer =
+                Quaternion.LookRotation(lookAtDirection, transform.up);
 
-        transform.rotation = Quaternion.Slerp(transform.rotation,
-            rotationTowardPlayer, 0.05f);
+            transform.rotation = Quaternion.Slerp(transform.rotation,
+                rotationTowardPlayer, 0.1f);
+        }
     }
 }
